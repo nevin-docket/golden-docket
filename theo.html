@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Theo — ABM Personalization | Golden Docket</title>
+  <meta name="description" content="Theo: Docket's ABM agent. De-anonymizes named accounts and delivers a hyper-personalized red carpet — recognizing who's visiting and routing to the right account owner." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="subpage" data-agent="theo">
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="index.html" class="brand">
+        <span class="brand__mark">G</span>
+        <span>Golden Docket</span>
+      </a>
+      <nav class="nav">
+        <a href="apollo.html" class="nav__link">Apollo</a>
+        <a href="theo.html" class="nav__link active">Theo</a>
+        <a href="iris.html" class="nav__link">Iris</a>
+        <a href="athena.html" class="nav__link">Athena</a>
+        <a href="atlas.html" class="nav__link">Atlas</a>
+        <a href="hera.html" class="nav__link">Hera</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <a href="index.html" class="back-link">← Back to all agents</a>
+
+    <section class="subpage-hero">
+      <span class="subpage-hero__eyebrow"><span class="dot"></span>USE CASE 02</span>
+      <h1 class="subpage-hero__title">Theo</h1>
+      <p class="subpage-hero__usecase">ABM Personalization</p>
+    </section>
+
+    <section class="subpage-content">
+      <div class="subpage-content__main">
+        <h2>What Theo does</h2>
+        <p>
+          Theo identifies who is landing on the site using de-anonymization — IP resolution plus first-party and third-party intent signals from tools like 6sense and Demandbase — and delivers a hyper-personalized "red carpet" experience for target accounts the moment they arrive.
+        </p>
+        <p>
+          Using Warm Context, Theo reads CRM data — Salesforce account ownership, past interactions, email campaign clicks — and tunes the conversation in real time. A named account doesn't get a generic chat; they get a conversation that already knows who they are and where they are in the journey. This closes the gap where de-anonymization tools, chatbots, forms, routing, and CRM all operate in silos with no shared context.
+        </p>
+
+        <h2>What Theo replaces</h2>
+        <ul>
+          <li>The disconnect between ABM platforms (6sense, Demandbase) and on-site experience</li>
+          <li>Generic chat experiences for named accounts who deserve a personalized one</li>
+          <li>Round-robin lead routing that ignores account ownership</li>
+        </ul>
+
+        <h2>Key discovery questions</h2>
+        <ul>
+          <li>When a target account lands on your website, does your site know who they are and treat them differently today?</li>
+          <li>What ABM platform are you using? How are you activating those intent signals on-site?</li>
+          <li>Do you have a named account list? What does the current experience look like for those accounts when they visit?</li>
+        </ul>
+
+        <h2>Try it</h2>
+        <p>The Theo widget is live on this page. To experience Theo's personalization, runtime context (account name, owner, intent topics) should be passed through the Docket dashboard — try it as if you were a named target account.</p>
+      </div>
+
+      <aside class="sidebar">
+        <div class="sidebar__card">
+          <div class="sidebar__label">Agent Details</div>
+          <dl>
+            <div class="sidebar__row"><dt>Name</dt><dd>Theo</dd></div>
+            <div class="sidebar__row"><dt>Use case</dt><dd>ABM Personalization</dd></div>
+            <div class="sidebar__row"><dt>Deployment</dt><dd>docketai.com (account-matched)</dd></div>
+            <div class="sidebar__row"><dt>Primary CTA</dt><dd>Book with Owner</dd></div>
+            <div class="sidebar__row"><dt>Reference</dt><dd>Asana Aura</dd></div>
+          </dl>
+        </div>
+
+        <div class="sidebar__hint">
+          <strong>Tip:</strong> Theo's job is recognition, not qualification. Try referencing a named account in the widget and watch how the routing changes — that's Warm Context in action.
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Golden Docket — Theo. <a href="index.html">← All agents</a></p>
+  </footer>
+
+  <!-- Theo widget -->
+  <script>
+    window.AISellerSettings = {
+      agent_id: '5e7f7eaf-25a3-440b-ab58-aa4759bd1a3e',
+    };
+    (function () {
+      var w = window;
+      var ew = w.AISeller;
+      if (typeof ew === 'function') {
+        ew('update', w.AISellerSettings);
+      } else {
+        var d = document;
+        var i = function () {
+          i.q.push(arguments);
+        };
+        i.q = [];
+        i.q.push(['update', w.AISellerSettings]);
+        w.AISeller = i;
+        var l = function () {
+          var s = d.createElement('script');
+          s.type = 'text/javascript';
+          s.async = true;
+          s.src = 'https://d33t2173eag6fx.cloudfront.net/script/app/inbound-se-script/ai-seller.js';
+          var x = d.getElementsByTagName('script')[0];
+          x.parentNode.insertBefore(s, x);
+        };
+        if (document.readyState === 'complete') {
+          l();
+        } else if (w.attachEvent) {
+          w.attachEvent('onload', l);
+        } else {
+          w.addEventListener('load', l, false);
+        }
+      }
+    })();
+  </script>
+</body>
+</html>

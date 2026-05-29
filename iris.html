@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iris — Inbound Automation | Golden Docket</title>
+  <meta name="description" content="Iris: Docket's inbound automation agent. Picks up immediately after form submission, qualifies in real time with BANT/MEDDIC, and routes an AQL to the CRM." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="subpage" data-agent="iris">
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="index.html" class="brand">
+        <span class="brand__mark">G</span>
+        <span>Golden Docket</span>
+      </a>
+      <nav class="nav">
+        <a href="apollo.html" class="nav__link">Apollo</a>
+        <a href="theo.html" class="nav__link">Theo</a>
+        <a href="iris.html" class="nav__link active">Iris</a>
+        <a href="athena.html" class="nav__link">Athena</a>
+        <a href="atlas.html" class="nav__link">Atlas</a>
+        <a href="hera.html" class="nav__link">Hera</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <a href="index.html" class="back-link">← Back to all agents</a>
+
+    <section class="subpage-hero">
+      <span class="subpage-hero__eyebrow"><span class="dot"></span>USE CASE 03</span>
+      <h1 class="subpage-hero__title">Iris</h1>
+      <p class="subpage-hero__usecase">Inbound Automation (Post-Form Fill)</p>
+    </section>
+
+    <section class="subpage-content">
+      <div class="subpage-content__main">
+        <h2>What Iris does</h2>
+        <p>
+          Many companies get form fills but lose leads between submission and SDR follow-up. Iris picks up immediately after the form, qualifies the lead in real time using frameworks like BANT or MEDDIC, and routes an Agent Qualified Lead (AQL) directly into the CRM — replacing the first 15-minute SDR discovery call.
+        </p>
+        <p>
+          Iris also reduces the spammy, unqualified meetings getting booked on salespeople's calendars. It recaps the form values, surfaces missed signals, and either flips to a meeting (Book a Meeting CTA) when warranted or routes to trial when intent is genuinely soft.
+        </p>
+
+        <h2>What Iris replaces</h2>
+        <ul>
+          <li>The 15-minute SDR discovery call that just re-asks the form questions</li>
+          <li>Lead-leakage between form submission and human follow-up</li>
+          <li>Calendar-clogging meetings with unqualified prospects</li>
+        </ul>
+
+        <h2>Key discovery questions</h2>
+        <ul>
+          <li>How many form fills are you getting per month, and how many get worked within the first hour?</li>
+          <li>What does your current SDR-to-inbound-lead ratio look like?</li>
+          <li>What qualification criteria do you use, and at what point in the funnel is it applied today?</li>
+        </ul>
+
+        <h2>Try it</h2>
+        <p>The Iris widget is live on this page. To experience Iris properly, form context should be passed via the dashboard — try it as if you'd just submitted a "Talk to Sales" form and got bounced.</p>
+      </div>
+
+      <aside class="sidebar">
+        <div class="sidebar__card">
+          <div class="sidebar__label">Agent Details</div>
+          <dl>
+            <div class="sidebar__row"><dt>Name</dt><dd>Iris</dd></div>
+            <div class="sidebar__row"><dt>Use case</dt><dd>Post-Form-Fill</dd></div>
+            <div class="sidebar__row"><dt>Deployment</dt><dd>/connect-with-sales</dd></div>
+            <div class="sidebar__row"><dt>Primary CTA</dt><dd>Book a Meeting / Start Trial</dd></div>
+            <div class="sidebar__row"><dt>Reference</dt><dd>Circle Clara</dd></div>
+          </dl>
+        </div>
+
+        <div class="sidebar__hint">
+          <strong>Tip:</strong> Iris always recaps-and-verifies on turn 1. Watch for the form-value reference and the "is that still accurate?" check before any routing happens.
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Golden Docket — Iris. <a href="index.html">← All agents</a></p>
+  </footer>
+
+  <!-- Iris widget -->
+  <script>
+    window.AISellerSettings = {
+      agent_id: 'ca3aa814-c903-48d3-8417-c0fdd3481f2a',
+    };
+    (function () {
+      var w = window;
+      var ew = w.AISeller;
+      if (typeof ew === 'function') {
+        ew('update', w.AISellerSettings);
+      } else {
+        var d = document;
+        var i = function () {
+          i.q.push(arguments);
+        };
+        i.q = [];
+        i.q.push(['update', w.AISellerSettings]);
+        w.AISeller = i;
+        var l = function () {
+          var s = d.createElement('script');
+          s.type = 'text/javascript';
+          s.async = true;
+          s.src = 'https://d33t2173eag6fx.cloudfront.net/script/app/inbound-se-script/ai-seller.js';
+          var x = d.getElementsByTagName('script')[0];
+          x.parentNode.insertBefore(s, x);
+        };
+        if (document.readyState === 'complete') {
+          l();
+        } else if (w.attachEvent) {
+          w.attachEvent('onload', l);
+        } else {
+          w.addEventListener('load', l, false);
+        }
+      }
+    })();
+  </script>
+</body>
+</html>

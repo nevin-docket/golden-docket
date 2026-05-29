@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hera — PLG / Free-to-Paid | Golden Docket</title>
+  <meta name="description" content="Hera: Docket's PLG agent. Deployed inside the product to guide free users toward aha moments, answer feature questions in context, and prompt upgrades." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="subpage" data-agent="hera">
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="index.html" class="brand">
+        <span class="brand__mark">G</span>
+        <span>Golden Docket</span>
+      </a>
+      <nav class="nav">
+        <a href="apollo.html" class="nav__link">Apollo</a>
+        <a href="theo.html" class="nav__link">Theo</a>
+        <a href="iris.html" class="nav__link">Iris</a>
+        <a href="athena.html" class="nav__link">Athena</a>
+        <a href="atlas.html" class="nav__link">Atlas</a>
+        <a href="hera.html" class="nav__link active">Hera</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <a href="index.html" class="back-link">← Back to all agents</a>
+
+    <section class="subpage-hero">
+      <span class="subpage-hero__eyebrow"><span class="dot"></span>USE CASE 06</span>
+      <h1 class="subpage-hero__title">Hera</h1>
+      <p class="subpage-hero__usecase">PLG / Free-to-Paid Conversion</p>
+    </section>
+
+    <section class="subpage-content">
+      <div class="subpage-content__main">
+        <h2>What Hera does</h2>
+        <p>
+          For companies with a product-led growth (PLG) motion, Hera is deployed inside the product to guide free users toward "aha moments," answer feature questions in context, and prompt upgrades — driving free-to-paid conversion without human intervention.
+        </p>
+        <p>
+          Hera can also handle in-app account creation, webhook triggers, and branching conversations for different user types (e.g., providers vs. patients, admins vs. end users). It's modeled on the G2 Tim qualifier — usage-aware, role-aware, and outcome-led on every upgrade ask.
+        </p>
+
+        <h2>What Hera replaces</h2>
+        <ul>
+          <li>The silent free user who signs up, doesn't activate, and never upgrades</li>
+          <li>Generic in-product upgrade nags that don't tie to the user's actual usage</li>
+          <li>Manual CS outreach to free users that doesn't scale</li>
+        </ul>
+
+        <h2>Key discovery questions</h2>
+        <ul>
+          <li>What is your current free-to-paid conversion rate?</li>
+          <li>What does a user typically do when they get stuck or want to understand a paid feature?</li>
+          <li>Do you have visibility into where free users drop off before upgrading?</li>
+        </ul>
+
+        <h2>Try it</h2>
+        <p>The Hera widget is live on this page. To experience Hera's PLG logic, runtime context (user role, plan, current page, paywall hits) should be passed through the dashboard — try it as if you were a free user mid-activation.</p>
+      </div>
+
+      <aside class="sidebar">
+        <div class="sidebar__card">
+          <div class="sidebar__label">Agent Details</div>
+          <dl>
+            <div class="sidebar__row"><dt>Name</dt><dd>Hera</dd></div>
+            <div class="sidebar__row"><dt>Use case</dt><dd>PLG / Free-to-Paid</dd></div>
+            <div class="sidebar__row"><dt>Deployment</dt><dd>In-product</dd></div>
+            <div class="sidebar__row"><dt>Primary CTA</dt><dd>Upgrade / Talk to Sales (enterprise)</dd></div>
+            <div class="sidebar__row"><dt>Reference</dt><dd>G2 Tim</dd></div>
+          </dl>
+        </div>
+
+        <div class="sidebar__hint">
+          <strong>Tip:</strong> Hera won't push upgrades to users mid-activation or troubleshooting. The upgrade ask is outcome-led and tied to the visitor's actual usage signal.
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Golden Docket — Hera. <a href="index.html">← All agents</a></p>
+  </footer>
+
+  <!-- Hera widget -->
+  <script>
+    window.AISellerSettings = {
+      agent_id: '3eba6b84-605f-43d4-a96d-1f56a56f73a7',
+    };
+    (function () {
+      var w = window;
+      var ew = w.AISeller;
+      if (typeof ew === 'function') {
+        ew('update', w.AISellerSettings);
+      } else {
+        var d = document;
+        var i = function () {
+          i.q.push(arguments);
+        };
+        i.q = [];
+        i.q.push(['update', w.AISellerSettings]);
+        w.AISeller = i;
+        var l = function () {
+          var s = d.createElement('script');
+          s.type = 'text/javascript';
+          s.async = true;
+          s.src = 'https://d33t2173eag6fx.cloudfront.net/script/app/inbound-se-script/ai-seller.js';
+          var x = d.getElementsByTagName('script')[0];
+          x.parentNode.insertBefore(s, x);
+        };
+        if (document.readyState === 'complete') {
+          l();
+        } else if (w.attachEvent) {
+          w.attachEvent('onload', l);
+        } else {
+          w.addEventListener('load', l, false);
+        }
+      }
+    })();
+  </script>
+</body>
+</html>

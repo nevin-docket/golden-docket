@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atlas — Paid Ads Acceleration | Golden Docket</title>
+  <meta name="description" content="Atlas: Docket's paid-ads landing-page concierge. Converts expensive ad clicks into qualified meetings in the same session — for teams spending $20K–$400K/month." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="subpage" data-agent="atlas">
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="index.html" class="brand">
+        <span class="brand__mark">G</span>
+        <span>Golden Docket</span>
+      </a>
+      <nav class="nav">
+        <a href="apollo.html" class="nav__link">Apollo</a>
+        <a href="theo.html" class="nav__link">Theo</a>
+        <a href="iris.html" class="nav__link">Iris</a>
+        <a href="athena.html" class="nav__link">Athena</a>
+        <a href="atlas.html" class="nav__link active">Atlas</a>
+        <a href="hera.html" class="nav__link">Hera</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <a href="index.html" class="back-link">← Back to all agents</a>
+
+    <section class="subpage-hero">
+      <span class="subpage-hero__eyebrow"><span class="dot"></span>USE CASE 05</span>
+      <h1 class="subpage-hero__title">Atlas</h1>
+      <p class="subpage-hero__usecase">Paid Ads Acceleration (Ad Landing Page Conversion)</p>
+    </section>
+
+    <section class="subpage-content">
+      <div class="subpage-content__main">
+        <h2>What Atlas does</h2>
+        <p>
+          Companies spending $20K–$400K/month on Google, LinkedIn, or Bing campaigns lose value when the landing-page experience drops off after the click. High ad spend with low landing-page conversion is the signal.
+        </p>
+        <p>
+          Atlas is deployed on paid-ad landing pages to convert that expensive click into a qualified meeting in the same session — rather than losing the visitor to a static form or a dead-end page. Instead of sending ad clicks to a generic website, companies send them to an agent-powered landing page that engages, qualifies, and books immediately.
+        </p>
+
+        <h2>What Atlas replaces</h2>
+        <ul>
+          <li>Static landing pages with a single CTA and 1–3% conversion</li>
+          <li>Generic websites that don't know which campaign sent the visitor</li>
+          <li>The gap between ad click and form submission where most spend is wasted</li>
+        </ul>
+
+        <h2>Key discovery questions</h2>
+        <ul>
+          <li>What is your current monthly paid ads spend (campaign + agency)?</li>
+          <li>What is your landing-page conversion rate from paid clicks today?</li>
+          <li>Are you sending ad traffic to a dedicated landing page or to your main website?</li>
+        </ul>
+
+        <h2>Try it</h2>
+        <p>The Atlas widget is live on this page. Atlas auto-pops on paid-ad landing pages — try it as a visitor who just clicked through from a campaign, and watch how the gating ladder works toward email capture.</p>
+      </div>
+
+      <aside class="sidebar">
+        <div class="sidebar__card">
+          <div class="sidebar__label">Agent Details</div>
+          <dl>
+            <div class="sidebar__row"><dt>Name</dt><dd>Atlas</dd></div>
+            <div class="sidebar__row"><dt>Use case</dt><dd>Paid Ads Acceleration</dd></div>
+            <div class="sidebar__row"><dt>Deployment</dt><dd>Paid landing pages (Vercel)</dd></div>
+            <div class="sidebar__row"><dt>Primary CTA</dt><dd>Download asset / Book a Meeting</dd></div>
+            <div class="sidebar__row"><dt>Reference</dt><dd>GetRev Optro</dd></div>
+          </dl>
+        </div>
+
+        <div class="sidebar__hint">
+          <strong>Tip:</strong> Atlas works through a value ladder — tease findings → email gate → download + post-capture handoff. Try having a real conversation about a campaign-relevant topic.
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Golden Docket — Atlas. <a href="index.html">← All agents</a></p>
+  </footer>
+
+  <!-- Atlas widget -->
+  <script>
+    window.AISellerSettings = {
+      agent_id: 'fc39108f-e43a-41bc-9faa-649c9dc56888',
+    };
+    (function () {
+      var w = window;
+      var ew = w.AISeller;
+      if (typeof ew === 'function') {
+        ew('update', w.AISellerSettings);
+      } else {
+        var d = document;
+        var i = function () {
+          i.q.push(arguments);
+        };
+        i.q = [];
+        i.q.push(['update', w.AISellerSettings]);
+        w.AISeller = i;
+        var l = function () {
+          var s = d.createElement('script');
+          s.type = 'text/javascript';
+          s.async = true;
+          s.src = 'https://d33t2173eag6fx.cloudfront.net/script/app/inbound-se-script/ai-seller.js';
+          var x = d.getElementsByTagName('script')[0];
+          x.parentNode.insertBefore(s, x);
+        };
+        if (document.readyState === 'complete') {
+          l();
+        } else if (w.attachEvent) {
+          w.attachEvent('onload', l);
+        } else {
+          w.addEventListener('load', l, false);
+        }
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apollo — Website Engagement | Golden Docket</title>
+  <meta name="description" content="Apollo: Docket's website engagement and qualification agent. Engages high-intent visitors on docketai.com in real time and routes them to the right next step." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="subpage" data-agent="apollo">
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="index.html" class="brand">
+        <span class="brand__mark">G</span>
+        <span>Golden Docket</span>
+      </a>
+      <nav class="nav">
+        <a href="apollo.html" class="nav__link active">Apollo</a>
+        <a href="theo.html" class="nav__link">Theo</a>
+        <a href="iris.html" class="nav__link">Iris</a>
+        <a href="athena.html" class="nav__link">Athena</a>
+        <a href="atlas.html" class="nav__link">Atlas</a>
+        <a href="hera.html" class="nav__link">Hera</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <a href="index.html" class="back-link">← Back to all agents</a>
+
+    <section class="subpage-hero">
+      <span class="subpage-hero__eyebrow"><span class="dot"></span>USE CASE 01</span>
+      <h1 class="subpage-hero__title">Apollo</h1>
+      <p class="subpage-hero__usecase">Website Engagement & Visitor Conversion</p>
+    </section>
+
+    <section class="subpage-content">
+      <div class="subpage-content__main">
+        <h2>What Apollo does</h2>
+        <p>
+          Apollo engages high-intent visitors on docketai.com in real time, answers buyer questions accurately, and guides them toward a next step — replacing the passive experience of a site that does nothing when visitors don't fill the form.
+        </p>
+        <p>
+          Apollo runs consultative BANT-style discovery to understand the visitor's use case, team, and pain. It distinguishes SMB, mid-market, and enterprise needs without sounding like a form, then routes to self-serve, a commercial rep, or the named account owner depending on segment and context.
+        </p>
+
+        <h2>What Apollo replaces</h2>
+        <ul>
+          <li>Passive websites where high-intent visitors leave without filling the form</li>
+          <li>Generic chatbots that surface FAQs but don't qualify</li>
+          <li>Slow lead-routing flows where SDRs follow up hours later</li>
+        </ul>
+
+        <h2>Key discovery questions</h2>
+        <ul>
+          <li>What happens today when a high-intent visitor lands on your site and doesn't fill the form?</li>
+          <li>What is your current website conversion rate (visitors to meetings or pipeline)?</li>
+          <li>How many of your monthly visitors would you consider high-intent?</li>
+        </ul>
+
+        <h2>Try it</h2>
+        <p>The Apollo widget is live on this page. Click the chat icon in the bottom-right corner to start a conversation, and treat it as a real visitor exploring Docket.</p>
+      </div>
+
+      <aside class="sidebar">
+        <div class="sidebar__card">
+          <div class="sidebar__label">Agent Details</div>
+          <dl>
+            <div class="sidebar__row"><dt>Name</dt><dd>Apollo</dd></div>
+            <div class="sidebar__row"><dt>Use case</dt><dd>Website Engagement</dd></div>
+            <div class="sidebar__row"><dt>Deployment</dt><dd>docketai.com</dd></div>
+            <div class="sidebar__row"><dt>Primary CTA</dt><dd>Book a Meeting</dd></div>
+            <div class="sidebar__row"><dt>Reference</dt><dd>Asana Aura</dd></div>
+          </dl>
+        </div>
+
+        <div class="sidebar__hint">
+          <strong>Tip:</strong> Apollo's job is to qualify, not pitch. Try asking about a real funnel problem — paid-ad CPL, form drop-off, or sales handoff speed — and see how it routes.
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Golden Docket — Apollo. <a href="index.html">← All agents</a></p>
+  </footer>
+
+  <!-- Apollo widget -->
+  <script>
+    window.AISellerSettings = {
+      agent_id: 'a6682d3c-6067-4b7d-97cd-d266b9d97265',
+    };
+    (function () {
+      var w = window;
+      var ew = w.AISeller;
+      if (typeof ew === 'function') {
+        ew('update', w.AISellerSettings);
+      } else {
+        var d = document;
+        var i = function () {
+          i.q.push(arguments);
+        };
+        i.q = [];
+        i.q.push(['update', w.AISellerSettings]);
+        w.AISeller = i;
+        var l = function () {
+          var s = d.createElement('script');
+          s.type = 'text/javascript';
+          s.async = true;
+          s.src = 'https://d33t2173eag6fx.cloudfront.net/script/app/inbound-se-script/ai-seller.js';
+          var x = d.getElementsByTagName('script')[0];
+          x.parentNode.insertBefore(s, x);
+        };
+        if (document.readyState === 'complete') {
+          l();
+        } else if (w.attachEvent) {
+          w.attachEvent('onload', l);
+        } else {
+          w.addEventListener('load', l, false);
+        }
+      }
+    })();
+  </script>
+</body>
+</html>

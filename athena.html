@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Athena — Technical Documentation | Golden Docket</title>
+  <meta name="description" content="Athena: Docket's product specialist on help.docketai.com. Answers deep technical and API questions in real time, grounded in product content." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="subpage" data-agent="athena">
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="index.html" class="brand">
+        <span class="brand__mark">G</span>
+        <span>Golden Docket</span>
+      </a>
+      <nav class="nav">
+        <a href="apollo.html" class="nav__link">Apollo</a>
+        <a href="theo.html" class="nav__link">Theo</a>
+        <a href="iris.html" class="nav__link">Iris</a>
+        <a href="athena.html" class="nav__link active">Athena</a>
+        <a href="atlas.html" class="nav__link">Atlas</a>
+        <a href="hera.html" class="nav__link">Hera</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <a href="index.html" class="back-link">← Back to all agents</a>
+
+    <section class="subpage-hero">
+      <span class="subpage-hero__eyebrow"><span class="dot"></span>USE CASE 04</span>
+      <h1 class="subpage-hero__title">Athena</h1>
+      <p class="subpage-hero__usecase">Technical Documentation / Product Expert</p>
+    </section>
+
+    <section class="subpage-content">
+      <div class="subpage-content__main">
+        <h2>What Athena does</h2>
+        <p>
+          For technical or API-heavy products, Athena is embedded on documentation and pricing pages to answer deep technical questions in real time — reducing support load, keeping prospects engaged longer, and surfacing relevant answers without a live human.
+        </p>
+        <p>
+          Athena is grounded in the company's actual product content and can continue a conversation across pages (e.g., landing page → docs → pricing) with full context. It's a peer-level guide, not a sales agent — handoff only happens when the question genuinely exceeds doc scope.
+        </p>
+
+        <h2>What Athena replaces</h2>
+        <ul>
+          <li>Static documentation pages where prospects with technical questions silently bounce</li>
+          <li>Long support response times that lose evaluators to a competitor</li>
+          <li>Sales reps fielding technical questions they're not equipped to answer in real time</li>
+        </ul>
+
+        <h2>Key discovery questions</h2>
+        <ul>
+          <li>How do prospects on your docs or pricing page get their technical questions answered today?</li>
+          <li>How long does it take for a prospect with a technical question to get a response?</li>
+          <li>Are you seeing high bounce rates on documentation or product pages?</li>
+        </ul>
+
+        <h2>Try it</h2>
+        <p>The Athena widget is live on this page. Ask a technical setup question — prompt configuration, integration auth, runtime context — and see how it responds with docs-grounded answers.</p>
+      </div>
+
+      <aside class="sidebar">
+        <div class="sidebar__card">
+          <div class="sidebar__label">Agent Details</div>
+          <dl>
+            <div class="sidebar__row"><dt>Name</dt><dd>Athena</dd></div>
+            <div class="sidebar__row"><dt>Use case</dt><dd>Tech Docs / Product Expert</dd></div>
+            <div class="sidebar__row"><dt>Deployment</dt><dd>help.docketai.com</dd></div>
+            <div class="sidebar__row"><dt>Primary CTA</dt><dd>Resolve in chat (escalate only as fallback)</dd></div>
+            <div class="sidebar__row"><dt>Reference</dt><dd>TestMu Kane</dd></div>
+          </dl>
+        </div>
+
+        <div class="sidebar__hint">
+          <strong>Tip:</strong> Athena is a helper, not a seller. Don't expect it to push for a meeting — its job is to resolve the doc question and only escalate when it can't.
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Golden Docket — Athena. <a href="index.html">← All agents</a></p>
+  </footer>
+
+  <!-- Athena widget -->
+  <script>
+    window.AISellerSettings = {
+      agent_id: '0efb5b14-d5b6-4535-8454-a14e9e7b1914',
+    };
+    (function () {
+      var w = window;
+      var ew = w.AISeller;
+      if (typeof ew === 'function') {
+        ew('update', w.AISellerSettings);
+      } else {
+        var d = document;
+        var i = function () {
+          i.q.push(arguments);
+        };
+        i.q = [];
+        i.q.push(['update', w.AISellerSettings]);
+        w.AISeller = i;
+        var l = function () {
+          var s = d.createElement('script');
+          s.type = 'text/javascript';
+          s.async = true;
+          s.src = 'https://d33t2173eag6fx.cloudfront.net/script/app/inbound-se-script/ai-seller.js';
+          var x = d.getElementsByTagName('script')[0];
+          x.parentNode.insertBefore(s, x);
+        };
+        if (document.readyState === 'complete') {
+          l();
+        } else if (w.attachEvent) {
+          w.attachEvent('onload', l);
+        } else {
+          w.addEventListener('load', l, false);
+        }
+      }
+    })();
+  </script>
+</body>
+</html>
