@@ -3,9 +3,171 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Iris — Inbound Automation | Golden Docket</title>
-  <meta name="description" content="Iris: Docket's inbound automation agent. Picks up immediately after form submission, qualifies in real time with BANT/MEDDIC, and routes an AQL to the CRM." />
+  <title>Iris — Talk to Sales | Golden Docket</title>
+  <meta name="description" content="Iris: Docket's post-form-fill re-qualification agent. Submit the form below to see Iris recap and re-engage in real time." />
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Form-specific styles, scoped to Iris page */
+    .iris-intro {
+      max-width: 720px;
+      margin: 0 auto 32px;
+      text-align: center;
+    }
+    .iris-intro p {
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.6;
+      margin-top: 12px;
+    }
+    .iris-form-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 36px 40px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+    }
+    .iris-form-wrap h2 {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+    .iris-form-wrap .form-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .form-row.full {
+      grid-template-columns: 1fr;
+    }
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .iris-form-wrap { padding: 24px 20px; }
+    }
+    .form-field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .form-field label .req {
+      color: var(--iris);
+      margin-left: 2px;
+    }
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 14px;
+      font-family: var(--font-sans);
+      color: var(--text);
+      background: #fff;
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus {
+      outline: none;
+      border-color: var(--iris);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+    }
+    .form-field textarea {
+      min-height: 88px;
+      resize: vertical;
+      font-family: var(--font-sans);
+    }
+    .form-actions {
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .btn-submit {
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--iris);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+    .btn-submit:hover {
+      background: #6d28d9;
+    }
+    .btn-submit:active {
+      transform: translateY(1px);
+    }
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .form-helper {
+      font-size: 12px;
+      color: var(--text-subtle);
+    }
+    .iris-thanks {
+      display: none;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+    .iris-thanks.show {
+      display: block;
+    }
+    .iris-thanks h2 {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+    }
+    .iris-thanks p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.6;
+      max-width: 480px;
+      margin: 0 auto 8px;
+    }
+    .iris-thanks .name {
+      color: var(--iris);
+      font-weight: 600;
+    }
+    .ctx-debug {
+      margin-top: 24px;
+      padding: 16px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-align: left;
+      color: var(--text-muted);
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .ctx-debug strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+  </style>
 </head>
 <body class="subpage" data-agent="iris">
   <header class="site-header">
@@ -31,53 +193,129 @@
     <section class="subpage-hero">
       <span class="subpage-hero__eyebrow"><span class="dot"></span>USE CASE 03</span>
       <h1 class="subpage-hero__title">Iris</h1>
-      <p class="subpage-hero__usecase">Inbound Automation (Post-Form Fill)</p>
+      <p class="subpage-hero__usecase">Inbound Automation (Post-Form-Fill)</p>
     </section>
 
-    <section class="subpage-content">
-      <div class="subpage-content__main">
-        <h2>What Iris does</h2>
-        <p>
-          Many companies get form fills but lose leads between submission and SDR follow-up. Iris picks up immediately after the form, qualifies the lead in real time using frameworks like BANT or MEDDIC, and routes an Agent Qualified Lead (AQL) directly into the CRM — replacing the first 15-minute SDR discovery call.
-        </p>
-        <p>
-          Iris also reduces the spammy, unqualified meetings getting booked on salespeople's calendars. It recaps the form values, surfaces missed signals, and either flips to a meeting (Book a Meeting CTA) when warranted or routes to trial when intent is genuinely soft.
-        </p>
+    <div class="iris-intro">
+      <p>This is the Docket "Talk to Sales" form. Fill it out, hit submit, and Iris will pick up exactly where you left off — recapping what you shared, surfacing missed signals, and routing to the right next step.</p>
+    </div>
 
-        <h2>What Iris replaces</h2>
-        <ul>
-          <li>The 15-minute SDR discovery call that just re-asks the form questions</li>
-          <li>Lead-leakage between form submission and human follow-up</li>
-          <li>Calendar-clogging meetings with unqualified prospects</li>
-        </ul>
+    <form class="iris-form-wrap" id="iris-form" novalidate>
+      <h2>Talk to our team</h2>
+      <p class="form-sub">Tell us about your team and what you're trying to solve. Takes about 60 seconds.</p>
 
-        <h2>Key discovery questions</h2>
-        <ul>
-          <li>How many form fills are you getting per month, and how many get worked within the first hour?</li>
-          <li>What does your current SDR-to-inbound-lead ratio look like?</li>
-          <li>What qualification criteria do you use, and at what point in the funnel is it applied today?</li>
-        </ul>
-
-        <h2>Try it</h2>
-        <p>The Iris widget is live on this page. To experience Iris properly, form context should be passed via the dashboard — try it as if you'd just submitted a "Talk to Sales" form and got bounced.</p>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="name">Full name<span class="req">*</span></label>
+          <input type="text" id="name" name="name" required autocomplete="name" />
+        </div>
+        <div class="form-field">
+          <label for="email">Work email<span class="req">*</span></label>
+          <input type="email" id="email" name="email" required autocomplete="email" placeholder="you@company.com" />
+        </div>
       </div>
 
-      <aside class="sidebar">
-        <div class="sidebar__card">
-          <div class="sidebar__label">Agent Details</div>
-          <dl>
-            <div class="sidebar__row"><dt>Name</dt><dd>Iris</dd></div>
-            <div class="sidebar__row"><dt>Use case</dt><dd>Post-Form-Fill</dd></div>
-            <div class="sidebar__row"><dt>Deployment</dt><dd>/connect-with-sales</dd></div>
-            <div class="sidebar__row"><dt>Primary CTA</dt><dd>Book a Meeting / Start Trial</dd></div>
-            <div class="sidebar__row"><dt>Reference</dt><dd>Circle Clara</dd></div>
-          </dl>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="company">Company<span class="req">*</span></label>
+          <input type="text" id="company" name="company" required autocomplete="organization" />
         </div>
+        <div class="form-field">
+          <label for="company_size">Company size<span class="req">*</span></label>
+          <select id="company_size" name="company_size" required>
+            <option value="">Select…</option>
+            <option value="1-50">1–50 employees</option>
+            <option value="51-200">51–200 employees</option>
+            <option value="201-500">201–500 employees</option>
+            <option value="501-2000">501–2,000 employees</option>
+            <option value="2000+">2,000+ employees</option>
+          </select>
+        </div>
+      </div>
 
-        <div class="sidebar__hint">
-          <strong>Tip:</strong> Iris always recaps-and-verifies on turn 1. Watch for the form-value reference and the "is that still accurate?" check before any routing happens.
+      <div class="form-row">
+        <div class="form-field">
+          <label for="role">Your role<span class="req">*</span></label>
+          <select id="role" name="role" required>
+            <option value="">Select…</option>
+            <option value="Demand Gen / Growth">Demand Gen / Growth</option>
+            <option value="RevOps">RevOps</option>
+            <option value="Marketing Ops">Marketing Ops</option>
+            <option value="CMO / VP Marketing">CMO / VP Marketing</option>
+            <option value="Sales / SDR Leadership">Sales / SDR Leadership</option>
+            <option value="Founder / CEO">Founder / CEO</option>
+            <option value="Other">Other</option>
+          </select>
         </div>
-      </aside>
+        <div class="form-field">
+          <label for="industry">Industry<span class="req">*</span></label>
+          <select id="industry" name="industry" required>
+            <option value="">Select…</option>
+            <option value="B2B SaaS">B2B SaaS</option>
+            <option value="Fintech">Fintech</option>
+            <option value="Healthtech">Healthtech</option>
+            <option value="DevTools / Infra">DevTools / Infra</option>
+            <option value="Marketing & Sales Tech">Marketing & Sales Tech</option>
+            <option value="E-commerce">E-commerce</option>
+            <option value="Services / Agency">Services / Agency</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row full">
+        <div class="form-field">
+          <label for="current_tools">Current funnel stack (chatbot / routing / ABM)</label>
+          <input type="text" id="current_tools" name="current_tools" placeholder="e.g. Drift, Qualified, Chili Piper, 6sense — or 'none'" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="primary_goal">Primary goal<span class="req">*</span></label>
+          <select id="primary_goal" name="primary_goal" required>
+            <option value="">Select…</option>
+            <option value="Just exploring">Just exploring</option>
+            <option value="Evaluate Docket vs current tool">Evaluate Docket vs current tool</option>
+            <option value="Replace a current tool">Replace a current tool</option>
+            <option value="Multi-agent rollout">Multi-agent rollout</option>
+            <option value="Scope an enterprise deployment">Scope an enterprise deployment</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="timeline">Timeline<span class="req">*</span></label>
+          <select id="timeline" name="timeline" required>
+            <option value="">Select…</option>
+            <option value="Just exploring">Just exploring</option>
+            <option value="This quarter">This quarter</option>
+            <option value="This half">This half</option>
+            <option value="This year">This year</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row full">
+        <div class="form-field">
+          <label for="topic">What's pushing you to look at agents now? (optional)</label>
+          <textarea id="topic" name="topic" placeholder="A short note on what's driving this — paid spend, AE bandwidth, named-account experience, etc."></textarea>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-submit" id="iris-submit">Talk to Sales</button>
+        <span class="form-helper">Iris will follow up in the chat after you submit.</span>
+      </div>
+    </form>
+
+    <section class="iris-thanks" id="iris-thanks">
+      <h2>Thanks, <span class="name" id="thanks-name">there</span> — Iris will pick this up</h2>
+      <p>Your form went through. Iris is in the chat in the bottom-right and has the context from what you shared. She'll recap and pick up the conversation from here.</p>
+      <p class="form-helper">If the chat doesn't open automatically, click the widget icon in the bottom-right corner.</p>
+      <div class="ctx-debug" id="ctx-debug" hidden>
+        <strong>Form context passed to Iris (for demo verification):</strong><br /><br />
+        <span id="ctx-debug-body"></span>
+      </div>
     </section>
   </main>
 
@@ -85,40 +323,129 @@
     <p>Golden Docket — Iris. <a href="index.html">← All agents</a></p>
   </footer>
 
-  <!-- Iris widget -->
   <script>
-    window.AISellerSettings = {
-      agent_id: 'ca3aa814-c903-48d3-8417-c0fdd3481f2a',
-    };
     (function () {
-      var w = window;
-      var ew = w.AISeller;
-      if (typeof ew === 'function') {
-        ew('update', w.AISellerSettings);
-      } else {
-        var d = document;
-        var i = function () {
-          i.q.push(arguments);
-        };
-        i.q = [];
-        i.q.push(['update', w.AISellerSettings]);
-        w.AISeller = i;
-        var l = function () {
-          var s = d.createElement('script');
-          s.type = 'text/javascript';
-          s.async = true;
-          s.src = 'https://d33t2173eag6fx.cloudfront.net/script/app/inbound-se-script/ai-seller.js';
-          var x = d.getElementsByTagName('script')[0];
-          x.parentNode.insertBefore(s, x);
-        };
-        if (document.readyState === 'complete') {
-          l();
-        } else if (w.attachEvent) {
-          w.attachEvent('onload', l);
-        } else {
-          w.addEventListener('load', l, false);
-        }
+      var IRIS_AGENT_ID = 'ca3aa814-c903-48d3-8417-c0fdd3481f2a';
+      var SHOW_CONTEXT_DEBUG = true; // set false to hide the demo verification panel
+
+      var form = document.getElementById('iris-form');
+      var thanks = document.getElementById('iris-thanks');
+      var thanksName = document.getElementById('thanks-name');
+      var ctxDebug = document.getElementById('ctx-debug');
+      var ctxDebugBody = document.getElementById('ctx-debug-body');
+      var submitBtn = document.getElementById('iris-submit');
+
+      function collectContext() {
+        var data = new FormData(form);
+        var ctx = {};
+        data.forEach(function (value, key) {
+          if (value && String(value).trim()) {
+            ctx[key] = String(value).trim();
+          }
+        });
+        return ctx;
       }
+
+      function loadIrisWidget(context) {
+        // Pass form values via AISellerSettings so the agent has them on load.
+        window.AISellerSettings = {
+          agent_id: IRIS_AGENT_ID,
+          user_context: context,
+          context: context,
+          variables: context
+        };
+
+        (function () {
+          var w = window;
+          var ew = w.AISeller;
+          if (typeof ew === 'function') {
+            ew('update', w.AISellerSettings);
+          } else {
+            var d = document;
+            var i = function () { i.q.push(arguments); };
+            i.q = [];
+            i.q.push(['update', w.AISellerSettings]);
+            w.AISeller = i;
+            var l = function () {
+              var s = d.createElement('script');
+              s.type = 'text/javascript';
+              s.async = true;
+              s.src = 'https://d33t2173eag6fx.cloudfront.net/script/app/inbound-se-script/ai-seller.js';
+              var x = d.getElementsByTagName('script')[0];
+              x.parentNode.insertBefore(s, x);
+            };
+            if (document.readyState === 'complete') {
+              l();
+            } else if (w.attachEvent) {
+              w.attachEvent('onload', l);
+            } else {
+              w.addEventListener('load', l, false);
+            }
+          }
+        })();
+
+        // After widget loads, try to push the context again via known API patterns.
+        // Different AISeller builds expose different methods; this attempts each safely.
+        var attempts = 0;
+        function pushContextWhenReady() {
+          attempts++;
+          var seller = window.AISeller;
+          if (seller) {
+            try {
+              if (typeof seller.setContext === 'function') {
+                seller.setContext(context);
+              } else if (typeof seller.update === 'function') {
+                seller.update({ user_context: context, context: context, variables: context });
+              } else if (typeof seller === 'function') {
+                seller('setContext', context);
+                seller('update', { user_context: context, context: context, variables: context });
+              }
+            } catch (e) {
+              // ignore — widget may not expose these methods in this build
+            }
+          }
+          if (attempts < 30) {
+            setTimeout(pushContextWhenReady, 300);
+          }
+        }
+        pushContextWhenReady();
+      }
+
+      function renderDebug(ctx) {
+        if (!SHOW_CONTEXT_DEBUG) return;
+        var lines = Object.keys(ctx).map(function (k) {
+          return k + ': ' + ctx[k];
+        });
+        ctxDebugBody.innerHTML = lines.join('<br />');
+        ctxDebug.hidden = false;
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting…';
+
+        var ctx = collectContext();
+
+        // Personalize the thanks block.
+        if (ctx.name) {
+          thanksName.textContent = ctx.name.split(' ')[0];
+        }
+
+        // Swap form for thanks block.
+        form.style.display = 'none';
+        thanks.classList.add('show');
+
+        renderDebug(ctx);
+
+        // Load Iris with form context.
+        loadIrisWidget(ctx);
+      });
     })();
   </script>
 </body>
