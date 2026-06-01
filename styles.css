@@ -89,11 +89,50 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-  transition: color 0.15s ease;
+  transition: all 0.2s ease;
 }
 
 a:hover {
   color: var(--accent-strong);
+}
+
+/* ============================================
+   Universal gold halo on hover / focus
+   ============================================ */
+.brand,
+.back-link,
+.card,
+.preset-btn,
+.preset-card,
+.btn-submit {
+  transition: all 0.2s ease;
+}
+
+.brand:hover {
+  color: var(--accent-strong);
+  text-shadow:
+    0 0 6px rgba(232, 184, 56, 0.55),
+    0 0 18px rgba(232, 184, 56, 0.35);
+}
+
+.brand:hover .brand__mark {
+  filter:
+    drop-shadow(0 0 8px rgba(232, 184, 56, 0.55))
+    drop-shadow(0 0 18px rgba(232, 184, 56, 0.3));
+}
+
+.back-link:hover {
+  color: var(--accent-strong);
+  text-shadow:
+    0 0 6px rgba(232, 184, 56, 0.55),
+    0 0 18px rgba(232, 184, 56, 0.35);
+}
+
+.site-footer a:hover {
+  color: var(--accent-strong);
+  text-shadow:
+    0 0 6px rgba(232, 184, 56, 0.55),
+    0 0 14px rgba(232, 184, 56, 0.3);
 }
 
 /* ============================================
@@ -272,10 +311,20 @@ main {
 
 .card:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--border-strong);
   background: var(--surface-elev);
+  border-color: rgba(232, 184, 56, 0.35);
+  box-shadow:
+    0 12px 36px rgba(0, 0, 0, 0.5),
+    0 0 28px rgba(232, 184, 56, 0.2),
+    0 0 56px rgba(232, 184, 56, 0.1);
   color: var(--text);
+}
+
+.card:hover .card__name {
+  color: var(--accent-strong);
+  text-shadow:
+    0 0 6px rgba(232, 184, 56, 0.45),
+    0 0 18px rgba(232, 184, 56, 0.22);
 }
 
 .card[data-agent="apollo"]::before { background: var(--apollo); }
@@ -325,7 +374,37 @@ main {
 
 .card:hover .card__arrow {
   transform: translateX(4px);
-  color: var(--text);
+  color: var(--accent-strong);
+  text-shadow:
+    0 0 6px rgba(232, 184, 56, 0.55),
+    0 0 18px rgba(232, 184, 56, 0.35);
+}
+
+/* Preset cards (Theo / Hera / Atlas pages) — keep agent-color border, layer gold halo */
+.preset-card:hover {
+  box-shadow:
+    0 0 22px rgba(232, 184, 56, 0.22),
+    0 0 44px rgba(232, 184, 56, 0.1);
+}
+
+.preset-card:hover .preset-card__title {
+  text-shadow:
+    0 0 6px rgba(232, 184, 56, 0.45),
+    0 0 18px rgba(232, 184, 56, 0.2);
+}
+
+/* Preset buttons (Iris page) — gold halo */
+.preset-btn:hover {
+  box-shadow:
+    0 0 18px rgba(232, 184, 56, 0.22),
+    0 0 36px rgba(232, 184, 56, 0.12);
+}
+
+/* Submit / primary action buttons — gold halo */
+.btn-submit:hover {
+  box-shadow:
+    0 0 20px rgba(232, 184, 56, 0.3),
+    0 0 40px rgba(232, 184, 56, 0.15);
 }
 
 /* ============================================
