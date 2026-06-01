@@ -19,6 +19,72 @@
       line-height: 1.6;
       margin-top: 12px;
     }
+
+    /* Preset buttons */
+    .iris-presets {
+      max-width: 720px;
+      margin: 0 auto 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      background: #fdf8eb;
+      border: 1px solid #f0e0a8;
+      border-radius: var(--radius);
+    }
+    .iris-presets__label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--accent-strong);
+      margin-right: 4px;
+    }
+    .preset-btn {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      padding: 8px 14px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      background: #fff;
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: left;
+    }
+    .preset-btn:hover {
+      border-color: var(--iris);
+      background: #faf5ff;
+    }
+    .preset-btn:active {
+      transform: translateY(1px);
+    }
+    .preset-btn__sub {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text-muted);
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    .preset-btn--clear {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      padding: 8px 12px;
+    }
+    .preset-btn--clear:hover {
+      border-color: var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+    }
+
     .iris-form-wrap {
       max-width: 720px;
       margin: 0 auto;
@@ -51,6 +117,8 @@
     @media (max-width: 600px) {
       .form-row { grid-template-columns: 1fr; }
       .iris-form-wrap { padding: 24px 20px; }
+      .iris-presets { padding: 12px; }
+      .preset-btn { width: 100%; }
     }
     .form-field label {
       display: block;
@@ -87,6 +155,16 @@
       min-height: 88px;
       resize: vertical;
       font-family: var(--font-sans);
+    }
+    /* Brief highlight when fields are auto-filled */
+    .form-field input.preset-flash,
+    .form-field select.preset-flash,
+    .form-field textarea.preset-flash {
+      animation: preset-flash 0.6s ease;
+    }
+    @keyframes preset-flash {
+      0%   { background: #faf5ff; border-color: var(--iris); }
+      100% { background: #fff;     border-color: var(--border-strong); }
     }
     .form-actions {
       margin-top: 24px;
@@ -198,6 +276,23 @@
 
     <div class="iris-intro">
       <p>This is the Docket "Talk to Sales" form. Fill it out, hit submit, and Iris will pick up exactly where you left off — recapping what you shared, surfacing missed signals, and routing to the right next step.</p>
+    </div>
+
+    <div class="iris-presets" id="iris-presets" aria-label="Demo presets">
+      <span class="iris-presets__label">Demo presets</span>
+      <button type="button" class="preset-btn" data-preset="icp-a">
+        ICP-A · Strong fit
+        <span class="preset-btn__sub">RevOps · 500 emp · replacing Drift</span>
+      </button>
+      <button type="button" class="preset-btn" data-preset="icp-b">
+        ICP-B · Borderline
+        <span class="preset-btn__sub">Demand Gen · 150 emp · exploring</span>
+      </button>
+      <button type="button" class="preset-btn" data-preset="non-icp">
+        Non-ICP
+        <span class="preset-btn__sub">Founder · services agency</span>
+      </button>
+      <button type="button" class="preset-btn preset-btn--clear" data-preset="clear">Clear</button>
     </div>
 
     <form class="iris-form-wrap" id="iris-form" novalidate>
@@ -326,7 +421,47 @@
   <script>
     (function () {
       var IRIS_AGENT_ID = 'ca3aa814-c903-48d3-8417-c0fdd3481f2a';
-      var SHOW_CONTEXT_DEBUG = true; // set false to hide the demo verification panel
+      var SHOW_CONTEXT_DEBUG = true;
+
+      // Demo presets — auto-fill the form for the three canonical scenarios.
+      var PRESETS = {
+        'icp-a': {
+          name: 'Sarah Chen',
+          email: 'sarah.chen@finovate.io',
+          company: 'Finovate',
+          company_size: '501-2000',
+          role: 'RevOps',
+          industry: 'B2B SaaS',
+          current_tools: 'Drift, Chili Piper, 6sense',
+          primary_goal: 'Replace a current tool',
+          timeline: 'This quarter',
+          topic: "Drift renewal is up in 60 days and we're getting buried in unqualified meetings. Need to fix paid landing pages and post-form-fill routing before then."
+        },
+        'icp-b': {
+          name: 'Marcus Reid',
+          email: 'marcus@looplab.com',
+          company: 'LoopLab',
+          company_size: '51-200',
+          role: 'Demand Gen / Growth',
+          industry: 'B2B SaaS',
+          current_tools: 'HubSpot forms, no chatbot',
+          primary_goal: 'Just exploring',
+          timeline: 'Just exploring',
+          topic: 'Saw Docket on G2 and was curious how the agent layer works. About 8K monthly visitors and maybe 50 form fills.'
+        },
+        'non-icp': {
+          name: 'Jamie Patel',
+          email: 'jamie@northstarpartners.com',
+          company: 'Northstar Partners',
+          company_size: '1-50',
+          role: 'Founder / CEO',
+          industry: 'Services / Agency',
+          current_tools: '',
+          primary_goal: 'Just exploring',
+          timeline: 'Just exploring',
+          topic: 'Mostly word-of-mouth deals at this stage. Curious if agents would work for us.'
+        }
+      };
 
       var form = document.getElementById('iris-form');
       var thanks = document.getElementById('iris-thanks');
@@ -334,6 +469,46 @@
       var ctxDebug = document.getElementById('ctx-debug');
       var ctxDebugBody = document.getElementById('ctx-debug-body');
       var submitBtn = document.getElementById('iris-submit');
+      var presetWrap = document.getElementById('iris-presets');
+
+      function setFieldValue(field, value) {
+        field.value = value || '';
+        field.classList.remove('preset-flash');
+        // Re-trigger the animation by reflow
+        void field.offsetWidth;
+        field.classList.add('preset-flash');
+      }
+
+      function applyPreset(name) {
+        if (name === 'clear') {
+          form.reset();
+          // Flash all fields to confirm clear
+          Array.prototype.forEach.call(form.elements, function (el) {
+            if (el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'TEXTAREA') {
+              el.classList.remove('preset-flash');
+              void el.offsetWidth;
+              el.classList.add('preset-flash');
+            }
+          });
+          return;
+        }
+        var data = PRESETS[name];
+        if (!data) return;
+        Object.keys(data).forEach(function (key) {
+          var field = form.elements[key];
+          if (field) {
+            setFieldValue(field, data[key]);
+          }
+        });
+      }
+
+      // Wire up preset buttons
+      presetWrap.addEventListener('click', function (e) {
+        var btn = e.target.closest('button[data-preset]');
+        if (!btn) return;
+        var preset = btn.getAttribute('data-preset');
+        applyPreset(preset);
+      });
 
       function collectContext() {
         var data = new FormData(form);
@@ -347,7 +522,6 @@
       }
 
       function loadIrisWidget(context) {
-        // Pass form values via AISellerSettings so the agent has them on load.
         window.AISellerSettings = {
           agent_id: IRIS_AGENT_ID,
           user_context: context,
@@ -384,8 +558,6 @@
           }
         })();
 
-        // After widget loads, try to push the context again via known API patterns.
-        // Different AISeller builds expose different methods; this attempts each safely.
         var attempts = 0;
         function pushContextWhenReady() {
           attempts++;
@@ -400,9 +572,7 @@
                 seller('setContext', context);
                 seller('update', { user_context: context, context: context, variables: context });
               }
-            } catch (e) {
-              // ignore — widget may not expose these methods in this build
-            }
+            } catch (e) {}
           }
           if (attempts < 30) {
             setTimeout(pushContextWhenReady, 300);
@@ -432,18 +602,15 @@
 
         var ctx = collectContext();
 
-        // Personalize the thanks block.
         if (ctx.name) {
           thanksName.textContent = ctx.name.split(' ')[0];
         }
 
-        // Swap form for thanks block.
         form.style.display = 'none';
+        presetWrap.style.display = 'none';
         thanks.classList.add('show');
 
         renderDebug(ctx);
-
-        // Load Iris with form context.
         loadIrisWidget(ctx);
       });
     })();
