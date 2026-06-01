@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Theo — ABM Personalization | Golden Docket</title>
+  <title>Theo — ABM Personalization | Docket</title>
   <meta name="description" content="Theo: Docket's ABM agent. Pick an account scenario to see how Warm Context personalizes the conversation." />
   <link rel="stylesheet" href="styles.css" />
   <style>
@@ -118,8 +118,8 @@
   <header class="site-header">
     <div class="site-header__inner">
       <a href="index.html" class="brand">
-        <span class="brand__mark">G</span>
-        <span>Golden Docket</span>
+        <span class="brand__mark">D</span>
+        <span>Docket</span>
       </a>
       <nav class="nav">
         <a href="apollo.html" class="nav__link">Apollo</a>
@@ -177,7 +177,7 @@
   </main>
 
   <footer class="site-footer">
-    <p>Golden Docket — Theo. <a href="index.html">← All agents</a></p>
+    <p>Docket — Theo. <a href="index.html">← All agents</a></p>
   </footer>
 
   <script>
@@ -186,60 +186,25 @@
 
       // Simulated ABM context payloads — real deployment would source these from
       // 6sense / Demandbase + Salesforce at runtime via the page's JS.
+      // Lean DCI: only the 4 variables Theo's prompt actually references.
       var PRESETS = {
         'acme-opportunity': {
           account_name: 'Acme Corp',
-          account_domain: 'acme.com',
-          account_industry: 'B2B SaaS',
-          account_size: '501-2000',
-          account_segment: 'mid-market',
           account_owner_name: 'Sarah Chen',
-          account_owner_email: 'sarah.chen@docketai.com',
-          account_owner_role: 'Enterprise AE',
           account_stage: 'opportunity',
-          intent_topics: 'paid-ad agents, post-form-fill, AQL routing',
-          intent_score: '92',
-          surge_signals: 'pricing page x3, competitor comparison page',
-          last_campaign_clicked: 'AQL Replacement research email',
-          last_visit_date: '3 days ago',
-          prior_session_topics: 'paid ads acceleration, AQL framework',
-          salesforce_account_id: '001A000001ABC',
-          crm_status: 'Open Opp - Stage 3 Discovery',
-          open_opportunities: '1'
+          intent_topics: 'paid-ad agents, post-form-fill, AQL routing'
         },
         'stripe-cold': {
           account_name: 'Stripe',
-          account_domain: 'stripe.com',
-          account_industry: 'Fintech',
-          account_size: '2000+',
-          account_segment: 'enterprise',
           account_owner_name: 'Marcus Reid',
-          account_owner_email: 'marcus.reid@docketai.com',
-          account_owner_role: 'Enterprise AE',
           account_stage: 'cold',
-          intent_topics: 'ABM personalization',
-          intent_score: '68',
-          surge_signals: 'pricing page',
-          salesforce_account_id: '001A000001XYZ',
-          crm_status: 'No Open Opp',
-          open_opportunities: '0'
+          intent_topics: 'ABM personalization'
         },
         'notion-customer': {
           account_name: 'Notion',
-          account_domain: 'notion.so',
-          account_industry: 'B2B SaaS',
-          account_size: '501-2000',
-          account_segment: 'mid-market',
           account_owner_name: 'Jamie Patel',
-          account_owner_email: 'jamie.patel@docketai.com',
-          account_owner_role: 'CSM',
           account_stage: 'customer',
-          intent_topics: 'multi-agent orchestration, PLG agents',
-          intent_score: '80',
-          last_visit_date: 'today',
-          prior_session_topics: 'Iris configuration, Atlas paid ads setup',
-          salesforce_account_id: '001A000001DEF',
-          crm_status: 'Active Customer - Expansion Opportunity'
+          intent_topics: 'multi-agent orchestration, PLG agents'
         }
       };
 

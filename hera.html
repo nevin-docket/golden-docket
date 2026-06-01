@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hera — PLG / Free-to-Paid | Golden Docket</title>
+  <title>Hera — PLG / Free-to-Paid | Docket</title>
   <meta name="description" content="Hera: Docket's in-product PLG agent. Pick a user-state scenario to see how Hera tailors activation and upgrade paths." />
   <link rel="stylesheet" href="styles.css" />
   <style>
@@ -118,8 +118,8 @@
   <header class="site-header">
     <div class="site-header__inner">
       <a href="index.html" class="brand">
-        <span class="brand__mark">G</span>
-        <span>Golden Docket</span>
+        <span class="brand__mark">D</span>
+        <span>Docket</span>
       </a>
       <nav class="nav">
         <a href="apollo.html" class="nav__link">Apollo</a>
@@ -182,7 +182,7 @@
   </main>
 
   <footer class="site-footer">
-    <p>Golden Docket — Hera. <a href="index.html">← All agents</a></p>
+    <p>Docket — Hera. <a href="index.html">← All agents</a></p>
   </footer>
 
   <script>
@@ -191,65 +191,38 @@
 
       // Simulated in-product user-state payloads — real deployment would source these
       // from the Docket product's session state via JS at runtime.
+      // Lean DCI: only the 6 variables Hera's prompt actually references.
       var PRESETS = {
         'new-stuck': {
           first_name: 'Alex',
           user_email: 'alex@looplab.com',
           user_role: 'builder',
-          account_id: 'acct_12345',
           plan: 'free',
-          current_page: 'agents.new',
-          days_since_signup: '7',
-          agents_created: '1',
           agents_deployed: '0',
-          total_messages_handled: '0',
-          last_action: 'edited prompt 3 days ago',
-          stuck_signals: 'no-deployment-after-7-days, idle-on-deploy-step',
           paywall_hit: ''
         },
         'paywall-hit': {
           first_name: 'Jordan',
           user_email: 'jordan@finovate.io',
           user_role: 'admin',
-          account_id: 'acct_67890',
           plan: 'free',
-          current_page: 'integrations.salesforce',
-          days_since_signup: '14',
-          agents_created: '2',
           agents_deployed: '2',
-          total_messages_handled: '340',
-          last_action: 'tried to enable Salesforce integration',
-          stuck_signals: '',
           paywall_hit: 'salesforce-integration'
         },
         'enterprise-scope': {
           first_name: 'Taylor',
           user_email: 'taylor@bigcorp.com',
           user_role: 'admin',
-          account_id: 'acct_99999',
           plan: 'pro',
-          current_page: 'settings.team',
-          days_since_signup: '38',
-          agents_created: '4',
           agents_deployed: '4',
-          total_messages_handled: '12400',
-          last_action: 'viewing SSO settings',
-          stuck_signals: '',
           paywall_hit: 'sso-required'
         },
         'end-user': {
           first_name: 'Sam',
           user_email: 'sam@looplab.com',
           user_role: 'end-user',
-          account_id: 'acct_12345',
           plan: 'free',
-          current_page: 'conversations.list',
-          days_since_signup: '5',
-          agents_created: '0',
           agents_deployed: '0',
-          total_messages_handled: '0',
-          last_action: 'viewing conversation history',
-          stuck_signals: '',
           paywall_hit: ''
         }
       };

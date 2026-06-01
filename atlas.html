@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Atlas — Paid Ads Acceleration | Golden Docket</title>
+  <title>Atlas — Paid Ads Acceleration | Docket</title>
   <meta name="description" content="Atlas: Docket's paid-ads landing-page concierge. Pick a campaign asset to simulate a paid-ad landing." />
   <link rel="stylesheet" href="styles.css" />
   <style>
@@ -124,8 +124,8 @@
   <header class="site-header">
     <div class="site-header__inner">
       <a href="index.html" class="brand">
-        <span class="brand__mark">G</span>
-        <span>Golden Docket</span>
+        <span class="brand__mark">D</span>
+        <span>Docket</span>
       </a>
       <nav class="nav">
         <a href="apollo.html" class="nav__link">Apollo</a>
@@ -186,7 +186,7 @@
   </main>
 
   <footer class="site-footer">
-    <p>Golden Docket — Atlas. <a href="index.html">← All agents</a></p>
+    <p>Docket — Atlas. <a href="index.html">← All agents</a></p>
   </footer>
 
   <script>
@@ -197,60 +197,26 @@
       // payload via dynamic context ingestion so Atlas knows which asset
       // is on the page, which line to open with, and which download URL
       // to surface after email capture.
-      var CONSENT_LANGUAGE =
-        "Quick heads-up: by continuing, your info may be shared with our team and you may be contacted per our Privacy Policy (https://docketai.com/privacy).";
-
-      var ADJACENT = {
-        'paid-benchmarks-2026': 'https://golden-docket.vercel.app/atlas?campaign=paid-benchmarks-2026',
-        'aql-framework-2026':   'https://golden-docket.vercel.app/atlas?campaign=aql-framework-2026',
-        'abm-warm-context-2026':'https://golden-docket.vercel.app/atlas?campaign=abm-warm-context-2026'
-      };
-
-      function buildAdjacentMap(currentId) {
-        var out = {};
-        Object.keys(ADJACENT).forEach(function (id) {
-          if (id !== currentId) out[id] = ADJACENT[id];
-        });
-        return JSON.stringify(out);
-      }
-
+      // Lean DCI: only the 3 variables Atlas's prompt actually references.
+      // Consent language, adjacent campaigns, and UTMs move to agent persona
+      // config / KB retrieval / form-handoff metadata — not the agent's DCI.
       var PRESETS = {
         'paid-benchmarks-2026': {
           campaign_id: 'paid-benchmarks-2026',
-          campaign_title: '2026 Paid Conversion Benchmarks',
           campaign_opening_line: "You're exploring our 2026 Paid Conversion Benchmarks.",
-          campaign_download_url: 'https://golden-docket.vercel.app/assets/docket-paid-benchmarks-2026.pdf',
-          consent_language: CONSENT_LANGUAGE,
-          utm_source: 'linkedin',
-          utm_medium: 'paid-social',
-          utm_campaign: 'paid-benchmarks-q1-2026'
+          campaign_download_url: 'https://golden-docket.vercel.app/assets/docket-paid-benchmarks-2026.pdf'
         },
         'aql-framework-2026': {
           campaign_id: 'aql-framework-2026',
-          campaign_title: 'AQL Replacement Framework',
           campaign_opening_line: "You've found our AQL Replacement Framework.",
-          campaign_download_url: 'https://golden-docket.vercel.app/assets/docket-aql-framework-2026.pdf',
-          consent_language: CONSENT_LANGUAGE,
-          utm_source: 'google',
-          utm_medium: 'paid-search',
-          utm_campaign: 'aql-framework-search'
+          campaign_download_url: 'https://golden-docket.vercel.app/assets/docket-aql-framework-2026.pdf'
         },
         'abm-warm-context-2026': {
           campaign_id: 'abm-warm-context-2026',
-          campaign_title: 'ABM Warm Context Study',
           campaign_opening_line: "This is our ABM Warm Context Study.",
-          campaign_download_url: 'https://golden-docket.vercel.app/assets/docket-abm-warm-context-2026.pdf',
-          consent_language: CONSENT_LANGUAGE,
-          utm_source: 'bing',
-          utm_medium: 'paid-search',
-          utm_campaign: 'abm-warm-context-q1'
+          campaign_download_url: 'https://golden-docket.vercel.app/assets/docket-abm-warm-context-2026.pdf'
         }
       };
-
-      // Add the adjacent_campaigns map last so each preset knows about the others.
-      Object.keys(PRESETS).forEach(function (id) {
-        PRESETS[id].adjacent_campaigns = buildAdjacentMap(id);
-      });
 
       var presetWrap = document.getElementById('atlas-presets');
       var loaded = document.getElementById('atlas-loaded');

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Iris — Talk to Sales | Golden Docket</title>
+  <title>Iris — Talk to Sales | Docket</title>
   <meta name="description" content="Iris: Docket's post-form-fill re-qualification agent. Submit the form below to see Iris recap and re-engage in real time." />
   <link rel="stylesheet" href="styles.css" />
   <style>
@@ -241,8 +241,8 @@
   <header class="site-header">
     <div class="site-header__inner">
       <a href="index.html" class="brand">
-        <span class="brand__mark">G</span>
-        <span>Golden Docket</span>
+        <span class="brand__mark">D</span>
+        <span>Docket</span>
       </a>
       <nav class="nav">
         <a href="apollo.html" class="nav__link">Apollo</a>
@@ -405,7 +405,7 @@
   </main>
 
   <footer class="site-footer">
-    <p>Golden Docket — Iris. <a href="index.html">← All agents</a></p>
+    <p>Docket — Iris. <a href="index.html">← All agents</a></p>
   </footer>
 
   <script>
@@ -500,11 +500,16 @@
         applyPreset(preset);
       });
 
+      // Lean DCI: only the 7 variables Iris's prompt actually references.
+      // The other 3 form fields (role, industry, topic) are captured for the
+      // sales handoff package but NOT passed to the agent's runtime context.
+      var AGENT_DCI_KEYS = ['name', 'email', 'company', 'company_size', 'current_tools', 'primary_goal', 'timeline'];
+
       function collectContext() {
         var data = new FormData(form);
         var ctx = {};
         data.forEach(function (value, key) {
-          if (value && String(value).trim()) {
+          if (value && String(value).trim() && AGENT_DCI_KEYS.indexOf(key) !== -1) {
             ctx[key] = String(value).trim();
           }
         });
