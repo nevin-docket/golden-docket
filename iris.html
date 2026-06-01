@@ -19,8 +19,6 @@
       line-height: 1.6;
       margin-top: 12px;
     }
-
-    /* Preset buttons */
     .iris-presets {
       max-width: 720px;
       margin: 0 auto 16px;
@@ -29,8 +27,8 @@
       align-items: center;
       gap: 10px;
       padding: 14px 18px;
-      background: #fdf8eb;
-      border: 1px solid #f0e0a8;
+      background: var(--iris-panel);
+      border: 1px solid var(--iris-border);
       border-radius: var(--radius);
     }
     .iris-presets__label {
@@ -39,7 +37,7 @@
       font-weight: 600;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: var(--accent-strong);
+      color: var(--iris);
       margin-right: 4px;
     }
     .preset-btn {
@@ -52,7 +50,7 @@
       font-size: 13px;
       font-weight: 600;
       color: var(--text);
-      background: #fff;
+      background: var(--surface);
       border: 1px solid var(--border-strong);
       border-radius: 8px;
       cursor: pointer;
@@ -61,11 +59,9 @@
     }
     .preset-btn:hover {
       border-color: var(--iris);
-      background: #faf5ff;
+      background: var(--surface-elev);
     }
-    .preset-btn:active {
-      transform: translateY(1px);
-    }
+    .preset-btn:active { transform: translateY(1px); }
     .preset-btn__sub {
       font-size: 11px;
       font-weight: 400;
@@ -81,10 +77,9 @@
     }
     .preset-btn--clear:hover {
       border-color: var(--border-strong);
-      background: var(--bg);
+      background: var(--bg-elev);
       color: var(--text);
     }
-
     .iris-form-wrap {
       max-width: 720px;
       margin: 0 auto;
@@ -96,7 +91,7 @@
     }
     .iris-form-wrap h2 {
       font-size: 22px;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: -0.01em;
       margin-bottom: 6px;
     }
@@ -111,9 +106,7 @@
       gap: 16px;
       margin-bottom: 16px;
     }
-    .form-row.full {
-      grid-template-columns: 1fr;
-    }
+    .form-row.full { grid-template-columns: 1fr; }
     @media (max-width: 600px) {
       .form-row { grid-template-columns: 1fr; }
       .iris-form-wrap { padding: 24px 20px; }
@@ -139,32 +132,38 @@
       font-size: 14px;
       font-family: var(--font-sans);
       color: var(--text);
-      background: #fff;
+      background: var(--bg-elev);
       border: 1px solid var(--border-strong);
       border-radius: 8px;
       transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .form-field select option {
+      background: var(--surface);
+      color: var(--text);
+    }
+    .form-field input::placeholder,
+    .form-field textarea::placeholder {
+      color: var(--text-subtle);
     }
     .form-field input:focus,
     .form-field select:focus,
     .form-field textarea:focus {
       outline: none;
       border-color: var(--iris);
-      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+      box-shadow: 0 0 0 3px rgba(196, 181, 253, 0.18);
     }
     .form-field textarea {
       min-height: 88px;
       resize: vertical;
-      font-family: var(--font-sans);
     }
-    /* Brief highlight when fields are auto-filled */
     .form-field input.preset-flash,
     .form-field select.preset-flash,
     .form-field textarea.preset-flash {
-      animation: preset-flash 0.6s ease;
+      animation: iris-field-flash 0.6s ease;
     }
-    @keyframes preset-flash {
-      0%   { background: #faf5ff; border-color: var(--iris); }
-      100% { background: #fff;     border-color: var(--border-strong); }
+    @keyframes iris-field-flash {
+      0%   { background: var(--surface-elev); border-color: var(--iris); }
+      100% { background: var(--bg-elev);      border-color: var(--border-strong); }
     }
     .form-actions {
       margin-top: 24px;
@@ -176,23 +175,16 @@
       padding: 12px 24px;
       font-size: 14px;
       font-weight: 600;
-      color: #fff;
+      color: #1A1426;
       background: var(--iris);
       border: none;
       border-radius: 8px;
       cursor: pointer;
       transition: background 0.15s ease, transform 0.1s ease;
     }
-    .btn-submit:hover {
-      background: #6d28d9;
-    }
-    .btn-submit:active {
-      transform: translateY(1px);
-    }
-    .btn-submit:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
+    .btn-submit:hover { background: #DDD1FA; }
+    .btn-submit:active { transform: translateY(1px); }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
     .form-helper {
       font-size: 12px;
       color: var(--text-subtle);
@@ -208,9 +200,7 @@
       box-shadow: var(--shadow);
       text-align: center;
     }
-    .iris-thanks.show {
-      display: block;
-    }
+    .iris-thanks.show { display: block; }
     .iris-thanks h2 {
       font-size: 24px;
       font-weight: 700;
@@ -231,14 +221,14 @@
     .ctx-debug {
       margin-top: 24px;
       padding: 16px;
-      background: #f8fafc;
+      background: var(--bg-elev);
       border: 1px solid var(--border);
       border-radius: 8px;
       font-family: var(--font-mono);
       font-size: 11px;
       text-align: left;
       color: var(--text-muted);
-      max-height: 200px;
+      max-height: 220px;
       overflow-y: auto;
     }
     .ctx-debug strong {
