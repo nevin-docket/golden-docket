@@ -4,8 +4,114 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Theo — ABM Personalization | Golden Docket</title>
-  <meta name="description" content="Theo: Docket's ABM agent. De-anonymizes named accounts and delivers a hyper-personalized red carpet — recognizing who's visiting and routing to the right account owner." />
+  <meta name="description" content="Theo: Docket's ABM agent. Pick an account scenario to see how Warm Context personalizes the conversation." />
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .theo-intro {
+      max-width: 720px;
+      margin: 0 auto 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .theo-presets {
+      max-width: 760px;
+      margin: 0 auto 24px;
+      padding: 18px 22px;
+      background: #eff6ff;
+      border: 1px solid #c7d6f0;
+      border-radius: var(--radius);
+    }
+    .theo-presets__label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--theo);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .theo-presets__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 700px) {
+      .theo-presets__grid { grid-template-columns: 1fr; }
+    }
+    .preset-card {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 14px 16px;
+      text-align: left;
+      font-family: var(--font-sans);
+      background: #fff;
+      border: 1px solid var(--border-strong);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .preset-card:hover {
+      border-color: var(--theo);
+      background: #f8fafc;
+      transform: translateY(-1px);
+    }
+    .preset-card__title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .preset-card__stage {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--theo);
+    }
+    .preset-card__desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+    .theo-loaded {
+      display: none;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 28px 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+    }
+    .theo-loaded.show { display: block; }
+    .theo-loaded h2 {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+    .theo-loaded .form-helper {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .ctx-debug {
+      padding: 16px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      max-height: 280px;
+      overflow-y: auto;
+    }
+    .ctx-debug strong { color: var(--text); font-weight: 600; }
+  </style>
 </head>
 <body class="subpage" data-agent="theo">
   <header class="site-header">
@@ -34,50 +140,38 @@
       <p class="subpage-hero__usecase">ABM Personalization</p>
     </section>
 
-    <section class="subpage-content">
-      <div class="subpage-content__main">
-        <h2>What Theo does</h2>
-        <p>
-          Theo identifies who is landing on the site using de-anonymization — IP resolution plus first-party and third-party intent signals from tools like 6sense and Demandbase — and delivers a hyper-personalized "red carpet" experience for target accounts the moment they arrive.
-        </p>
-        <p>
-          Using Warm Context, Theo reads CRM data — Salesforce account ownership, past interactions, email campaign clicks — and tunes the conversation in real time. A named account doesn't get a generic chat; they get a conversation that already knows who they are and where they are in the journey. This closes the gap where de-anonymization tools, chatbots, forms, routing, and CRM all operate in silos with no shared context.
-        </p>
+    <div class="theo-intro">
+      <p>Theo recognizes named accounts when they land — via IP de-anon plus 6sense / Demandbase intent plus Salesforce account data — and tailors the conversation to their stage and account owner. Pick a scenario below to simulate a named-account visit.</p>
+    </div>
 
-        <h2>What Theo replaces</h2>
-        <ul>
-          <li>The disconnect between ABM platforms (6sense, Demandbase) and on-site experience</li>
-          <li>Generic chat experiences for named accounts who deserve a personalized one</li>
-          <li>Round-robin lead routing that ignores account ownership</li>
-        </ul>
-
-        <h2>Key discovery questions</h2>
-        <ul>
-          <li>When a target account lands on your website, does your site know who they are and treat them differently today?</li>
-          <li>What ABM platform are you using? How are you activating those intent signals on-site?</li>
-          <li>Do you have a named account list? What does the current experience look like for those accounts when they visit?</li>
-        </ul>
-
-        <h2>Try it</h2>
-        <p>The Theo widget is live on this page. To experience Theo's personalization, runtime context (account name, owner, intent topics) should be passed through the Docket dashboard — try it as if you were a named target account.</p>
+    <div class="theo-presets" id="theo-presets">
+      <span class="theo-presets__label">ABM scenarios</span>
+      <div class="theo-presets__grid">
+        <button type="button" class="preset-card" data-preset="acme-opportunity">
+          <span class="preset-card__stage">Opportunity stage</span>
+          <span class="preset-card__title">Acme Corp · Sarah Chen owns</span>
+          <span class="preset-card__desc">Mid-market B2B SaaS, open opp in Stage 3, recently clicked paid-ads benchmarks email.</span>
+        </button>
+        <button type="button" class="preset-card" data-preset="stripe-cold">
+          <span class="preset-card__stage">Cold</span>
+          <span class="preset-card__title">Stripe · Marcus Reid owns</span>
+          <span class="preset-card__desc">Enterprise fintech, no open opp, recent surge on "ABM personalization" topic.</span>
+        </button>
+        <button type="button" class="preset-card" data-preset="notion-customer">
+          <span class="preset-card__stage">Customer · Expansion</span>
+          <span class="preset-card__title">Notion · Jamie Patel owns (CSM)</span>
+          <span class="preset-card__desc">Active customer, prior sessions on Iris and Atlas, looking at multi-agent.</span>
+        </button>
       </div>
+    </div>
 
-      <aside class="sidebar">
-        <div class="sidebar__card">
-          <div class="sidebar__label">Agent Details</div>
-          <dl>
-            <div class="sidebar__row"><dt>Name</dt><dd>Theo</dd></div>
-            <div class="sidebar__row"><dt>Use case</dt><dd>ABM Personalization</dd></div>
-            <div class="sidebar__row"><dt>Deployment</dt><dd>docketai.com (account-matched)</dd></div>
-            <div class="sidebar__row"><dt>Primary CTA</dt><dd>Book with Owner</dd></div>
-            <div class="sidebar__row"><dt>Reference</dt><dd>Asana Aura</dd></div>
-          </dl>
-        </div>
-
-        <div class="sidebar__hint">
-          <strong>Tip:</strong> Theo's job is recognition, not qualification. Try referencing a named account in the widget and watch how the routing changes — that's Warm Context in action.
-        </div>
-      </aside>
+    <section class="theo-loaded" id="theo-loaded">
+      <h2 id="theo-loaded-title">Loading Theo with account context…</h2>
+      <p class="form-helper">Theo is opening in the chat in the bottom-right. The context below was passed via dynamic context ingestion.</p>
+      <div class="ctx-debug" id="ctx-debug">
+        <strong>Runtime context passed to Theo:</strong><br /><br />
+        <span id="ctx-debug-body"></span>
+      </div>
     </section>
   </main>
 
@@ -85,40 +179,166 @@
     <p>Golden Docket — Theo. <a href="index.html">← All agents</a></p>
   </footer>
 
-  <!-- Theo widget -->
   <script>
-    window.AISellerSettings = {
-      agent_id: '5e7f7eaf-25a3-440b-ab58-aa4759bd1a3e',
-    };
     (function () {
-      var w = window;
-      var ew = w.AISeller;
-      if (typeof ew === 'function') {
-        ew('update', w.AISellerSettings);
-      } else {
-        var d = document;
-        var i = function () {
-          i.q.push(arguments);
-        };
-        i.q = [];
-        i.q.push(['update', w.AISellerSettings]);
-        w.AISeller = i;
-        var l = function () {
-          var s = d.createElement('script');
-          s.type = 'text/javascript';
-          s.async = true;
-          s.src = 'https://d33t2173eag6fx.cloudfront.net/script/app/inbound-se-script/ai-seller.js';
-          var x = d.getElementsByTagName('script')[0];
-          x.parentNode.insertBefore(s, x);
-        };
-        if (document.readyState === 'complete') {
-          l();
-        } else if (w.attachEvent) {
-          w.attachEvent('onload', l);
-        } else {
-          w.addEventListener('load', l, false);
+      var THEO_AGENT_ID = '5e7f7eaf-25a3-440b-ab58-aa4759bd1a3e';
+
+      // Simulated ABM context payloads — real deployment would source these from
+      // 6sense / Demandbase + Salesforce at runtime via the page's JS.
+      var PRESETS = {
+        'acme-opportunity': {
+          account_name: 'Acme Corp',
+          account_domain: 'acme.com',
+          account_industry: 'B2B SaaS',
+          account_size: '501-2000',
+          account_segment: 'mid-market',
+          account_owner_name: 'Sarah Chen',
+          account_owner_email: 'sarah.chen@docketai.com',
+          account_owner_role: 'Enterprise AE',
+          account_stage: 'opportunity',
+          intent_topics: 'paid-ad agents, post-form-fill, AQL routing',
+          intent_score: '92',
+          surge_signals: 'pricing page x3, competitor comparison page',
+          last_campaign_clicked: 'AQL Replacement research email',
+          last_visit_date: '3 days ago',
+          prior_session_topics: 'paid ads acceleration, AQL framework',
+          salesforce_account_id: '001A000001ABC',
+          crm_status: 'Open Opp - Stage 3 Discovery',
+          open_opportunities: '1'
+        },
+        'stripe-cold': {
+          account_name: 'Stripe',
+          account_domain: 'stripe.com',
+          account_industry: 'Fintech',
+          account_size: '2000+',
+          account_segment: 'enterprise',
+          account_owner_name: 'Marcus Reid',
+          account_owner_email: 'marcus.reid@docketai.com',
+          account_owner_role: 'Enterprise AE',
+          account_stage: 'cold',
+          intent_topics: 'ABM personalization',
+          intent_score: '68',
+          surge_signals: 'pricing page',
+          salesforce_account_id: '001A000001XYZ',
+          crm_status: 'No Open Opp',
+          open_opportunities: '0'
+        },
+        'notion-customer': {
+          account_name: 'Notion',
+          account_domain: 'notion.so',
+          account_industry: 'B2B SaaS',
+          account_size: '501-2000',
+          account_segment: 'mid-market',
+          account_owner_name: 'Jamie Patel',
+          account_owner_email: 'jamie.patel@docketai.com',
+          account_owner_role: 'CSM',
+          account_stage: 'customer',
+          intent_topics: 'multi-agent orchestration, PLG agents',
+          intent_score: '80',
+          last_visit_date: 'today',
+          prior_session_topics: 'Iris configuration, Atlas paid ads setup',
+          salesforce_account_id: '001A000001DEF',
+          crm_status: 'Active Customer - Expansion Opportunity'
         }
+      };
+
+      var presetWrap = document.getElementById('theo-presets');
+      var loaded = document.getElementById('theo-loaded');
+      var loadedTitle = document.getElementById('theo-loaded-title');
+      var ctxDebugBody = document.getElementById('ctx-debug-body');
+
+      function renderDebug(ctx) {
+        var lines = Object.keys(ctx).map(function (k) {
+          return k + ': ' + ctx[k];
+        });
+        ctxDebugBody.innerHTML = lines.join('<br />');
       }
+
+      function loadAndOpenTheo(context) {
+        window.AISellerSettings = {
+          agent_id: THEO_AGENT_ID,
+          user_context: context,
+          context: context,
+          variables: context
+        };
+
+        (function () {
+          var w = window;
+          var ew = w.AISeller;
+          if (typeof ew === 'function') {
+            ew('update', w.AISellerSettings);
+          } else {
+            var d = document;
+            var i = function () { i.q.push(arguments); };
+            i.q = [];
+            i.q.push(['update', w.AISellerSettings]);
+            w.AISeller = i;
+            var l = function () {
+              var s = d.createElement('script');
+              s.type = 'text/javascript';
+              s.async = true;
+              s.src = 'https://d33t2173eag6fx.cloudfront.net/script/app/inbound-se-script/ai-seller.js';
+              var x = d.getElementsByTagName('script')[0];
+              x.parentNode.insertBefore(s, x);
+            };
+            if (document.readyState === 'complete') { l(); }
+            else { w.addEventListener('load', l, false); }
+          }
+        })();
+
+        // Push context after widget is ready.
+        var ctxAttempts = 0;
+        function pushContextWhenReady() {
+          ctxAttempts++;
+          var s = window.AISeller;
+          if (s) {
+            try {
+              if (typeof s.setContext === 'function') s.setContext(context);
+              else if (typeof s.update === 'function') s.update({ user_context: context, context: context, variables: context });
+              else if (typeof s === 'function') {
+                s('setContext', context);
+                s('update', { user_context: context, context: context, variables: context });
+              }
+            } catch (e) {}
+          }
+          if (ctxAttempts < 30) setTimeout(pushContextWhenReady, 300);
+        }
+        pushContextWhenReady();
+
+        // Auto-open the chat panel.
+        var openAttempts = 0;
+        function openWidgetWhenReady() {
+          openAttempts++;
+          var s = window.AISeller;
+          var opened = false;
+          if (s) {
+            try {
+              if (typeof s.open === 'function') { s.open(); opened = true; }
+              else if (typeof s.show === 'function') { s.show(); opened = true; }
+              else if (typeof s.toggle === 'function') { s.toggle(); opened = true; }
+              else if (typeof s === 'function') {
+                s('open'); s('show'); opened = true;
+              }
+            } catch (e) {}
+          }
+          if (!opened && openAttempts < 40) setTimeout(openWidgetWhenReady, 300);
+        }
+        setTimeout(openWidgetWhenReady, 800);
+      }
+
+      presetWrap.addEventListener('click', function (e) {
+        var btn = e.target.closest('button[data-preset]');
+        if (!btn) return;
+        var preset = btn.getAttribute('data-preset');
+        var ctx = PRESETS[preset];
+        if (!ctx) return;
+
+        loadedTitle.textContent = 'Loading Theo for ' + ctx.account_name + '…';
+        presetWrap.style.display = 'none';
+        loaded.classList.add('show');
+        renderDebug(ctx);
+        loadAndOpenTheo(ctx);
+      });
     })();
   </script>
 </body>

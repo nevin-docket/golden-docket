@@ -4,8 +4,114 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hera — PLG / Free-to-Paid | Golden Docket</title>
-  <meta name="description" content="Hera: Docket's PLG agent. Deployed inside the product to guide free users toward aha moments, answer feature questions in context, and prompt upgrades." />
+  <meta name="description" content="Hera: Docket's in-product PLG agent. Pick a user-state scenario to see how Hera tailors activation and upgrade paths." />
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .hera-intro {
+      max-width: 720px;
+      margin: 0 auto 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .hera-presets {
+      max-width: 880px;
+      margin: 0 auto 24px;
+      padding: 18px 22px;
+      background: #fef2f5;
+      border: 1px solid #f1c5d2;
+      border-radius: var(--radius);
+    }
+    .hera-presets__label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--hera);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .hera-presets__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 700px) {
+      .hera-presets__grid { grid-template-columns: 1fr; }
+    }
+    .preset-card {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 14px 16px;
+      text-align: left;
+      font-family: var(--font-sans);
+      background: #fff;
+      border: 1px solid var(--border-strong);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .preset-card:hover {
+      border-color: var(--hera);
+      background: #fff5f7;
+      transform: translateY(-1px);
+    }
+    .preset-card__title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .preset-card__tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--hera);
+    }
+    .preset-card__desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+    .hera-loaded {
+      display: none;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 28px 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+    }
+    .hera-loaded.show { display: block; }
+    .hera-loaded h2 {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+    .hera-loaded .form-helper {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .ctx-debug {
+      padding: 16px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      max-height: 280px;
+      overflow-y: auto;
+    }
+    .ctx-debug strong { color: var(--text); font-weight: 600; }
+  </style>
 </head>
 <body class="subpage" data-agent="hera">
   <header class="site-header">
@@ -34,50 +140,43 @@
       <p class="subpage-hero__usecase">PLG / Free-to-Paid Conversion</p>
     </section>
 
-    <section class="subpage-content">
-      <div class="subpage-content__main">
-        <h2>What Hera does</h2>
-        <p>
-          For companies with a product-led growth (PLG) motion, Hera is deployed inside the product to guide free users toward "aha moments," answer feature questions in context, and prompt upgrades — driving free-to-paid conversion without human intervention.
-        </p>
-        <p>
-          Hera can also handle in-app account creation, webhook triggers, and branching conversations for different user types (e.g., providers vs. patients, admins vs. end users). It's modeled on the G2 Tim qualifier — usage-aware, role-aware, and outcome-led on every upgrade ask.
-        </p>
+    <div class="hera-intro">
+      <p>Hera lives inside the Docket product, talking to signed-in free users. The product passes user state via JS — plan, current page, activation signals, paywall hits — and Hera tailors the conversation to drive activation or surface the upgrade path. Pick a user state to simulate.</p>
+    </div>
 
-        <h2>What Hera replaces</h2>
-        <ul>
-          <li>The silent free user who signs up, doesn't activate, and never upgrades</li>
-          <li>Generic in-product upgrade nags that don't tie to the user's actual usage</li>
-          <li>Manual CS outreach to free users that doesn't scale</li>
-        </ul>
-
-        <h2>Key discovery questions</h2>
-        <ul>
-          <li>What is your current free-to-paid conversion rate?</li>
-          <li>What does a user typically do when they get stuck or want to understand a paid feature?</li>
-          <li>Do you have visibility into where free users drop off before upgrading?</li>
-        </ul>
-
-        <h2>Try it</h2>
-        <p>The Hera widget is live on this page. To experience Hera's PLG logic, runtime context (user role, plan, current page, paywall hits) should be passed through the dashboard — try it as if you were a free user mid-activation.</p>
+    <div class="hera-presets" id="hera-presets">
+      <span class="hera-presets__label">In-product user states</span>
+      <div class="hera-presets__grid">
+        <button type="button" class="preset-card" data-preset="new-stuck">
+          <span class="preset-card__tag">Free · builder · day 7 · not deployed</span>
+          <span class="preset-card__title">Stuck mid-setup</span>
+          <span class="preset-card__desc">Created an agent draft but hasn't deployed. Hera should nudge to the next step, not push upgrade.</span>
+        </button>
+        <button type="button" class="preset-card" data-preset="paywall-hit">
+          <span class="preset-card__tag">Free · admin · paywall hit</span>
+          <span class="preset-card__title">Hit Salesforce integration gate</span>
+          <span class="preset-card__desc">Tried to wire Salesforce. Pro feature. Hera should surface the upgrade path, outcome-led.</span>
+        </button>
+        <button type="button" class="preset-card" data-preset="enterprise-scope">
+          <span class="preset-card__tag">Pro · admin · SSO required</span>
+          <span class="preset-card__title">Enterprise scope conversation</span>
+          <span class="preset-card__desc">Pro customer rolling out broader. Looking at SSO settings. Hera should route to enterprise sales.</span>
+        </button>
+        <button type="button" class="preset-card" data-preset="end-user">
+          <span class="preset-card__tag">Free · end-user · viewing</span>
+          <span class="preset-card__title">End-user (can't approve upgrade)</span>
+          <span class="preset-card__desc">Viewing conversations. End-user role can't approve plan changes. Hera should NOT push upgrade.</span>
+        </button>
       </div>
+    </div>
 
-      <aside class="sidebar">
-        <div class="sidebar__card">
-          <div class="sidebar__label">Agent Details</div>
-          <dl>
-            <div class="sidebar__row"><dt>Name</dt><dd>Hera</dd></div>
-            <div class="sidebar__row"><dt>Use case</dt><dd>PLG / Free-to-Paid</dd></div>
-            <div class="sidebar__row"><dt>Deployment</dt><dd>In-product</dd></div>
-            <div class="sidebar__row"><dt>Primary CTA</dt><dd>Upgrade / Talk to Sales (enterprise)</dd></div>
-            <div class="sidebar__row"><dt>Reference</dt><dd>G2 Tim</dd></div>
-          </dl>
-        </div>
-
-        <div class="sidebar__hint">
-          <strong>Tip:</strong> Hera won't push upgrades to users mid-activation or troubleshooting. The upgrade ask is outcome-led and tied to the visitor's actual usage signal.
-        </div>
-      </aside>
+    <section class="hera-loaded" id="hera-loaded">
+      <h2 id="hera-loaded-title">Loading Hera with user state…</h2>
+      <p class="form-helper">Hera is opening in the chat in the bottom-right. The context below was passed via dynamic context ingestion from the product.</p>
+      <div class="ctx-debug" id="ctx-debug">
+        <strong>Runtime context passed to Hera:</strong><br /><br />
+        <span id="ctx-debug-body"></span>
+      </div>
     </section>
   </main>
 
@@ -85,40 +184,177 @@
     <p>Golden Docket — Hera. <a href="index.html">← All agents</a></p>
   </footer>
 
-  <!-- Hera widget -->
   <script>
-    window.AISellerSettings = {
-      agent_id: '3eba6b84-605f-43d4-a96d-1f56a56f73a7',
-    };
     (function () {
-      var w = window;
-      var ew = w.AISeller;
-      if (typeof ew === 'function') {
-        ew('update', w.AISellerSettings);
-      } else {
-        var d = document;
-        var i = function () {
-          i.q.push(arguments);
-        };
-        i.q = [];
-        i.q.push(['update', w.AISellerSettings]);
-        w.AISeller = i;
-        var l = function () {
-          var s = d.createElement('script');
-          s.type = 'text/javascript';
-          s.async = true;
-          s.src = 'https://d33t2173eag6fx.cloudfront.net/script/app/inbound-se-script/ai-seller.js';
-          var x = d.getElementsByTagName('script')[0];
-          x.parentNode.insertBefore(s, x);
-        };
-        if (document.readyState === 'complete') {
-          l();
-        } else if (w.attachEvent) {
-          w.attachEvent('onload', l);
-        } else {
-          w.addEventListener('load', l, false);
+      var HERA_AGENT_ID = '3eba6b84-605f-43d4-a96d-1f56a56f73a7';
+
+      // Simulated in-product user-state payloads — real deployment would source these
+      // from the Docket product's session state via JS at runtime.
+      var PRESETS = {
+        'new-stuck': {
+          first_name: 'Alex',
+          user_email: 'alex@looplab.com',
+          user_role: 'builder',
+          account_id: 'acct_12345',
+          plan: 'free',
+          current_page: 'agents.new',
+          days_since_signup: '7',
+          agents_created: '1',
+          agents_deployed: '0',
+          total_messages_handled: '0',
+          last_action: 'edited prompt 3 days ago',
+          stuck_signals: 'no-deployment-after-7-days, idle-on-deploy-step',
+          paywall_hit: ''
+        },
+        'paywall-hit': {
+          first_name: 'Jordan',
+          user_email: 'jordan@finovate.io',
+          user_role: 'admin',
+          account_id: 'acct_67890',
+          plan: 'free',
+          current_page: 'integrations.salesforce',
+          days_since_signup: '14',
+          agents_created: '2',
+          agents_deployed: '2',
+          total_messages_handled: '340',
+          last_action: 'tried to enable Salesforce integration',
+          stuck_signals: '',
+          paywall_hit: 'salesforce-integration'
+        },
+        'enterprise-scope': {
+          first_name: 'Taylor',
+          user_email: 'taylor@bigcorp.com',
+          user_role: 'admin',
+          account_id: 'acct_99999',
+          plan: 'pro',
+          current_page: 'settings.team',
+          days_since_signup: '38',
+          agents_created: '4',
+          agents_deployed: '4',
+          total_messages_handled: '12400',
+          last_action: 'viewing SSO settings',
+          stuck_signals: '',
+          paywall_hit: 'sso-required'
+        },
+        'end-user': {
+          first_name: 'Sam',
+          user_email: 'sam@looplab.com',
+          user_role: 'end-user',
+          account_id: 'acct_12345',
+          plan: 'free',
+          current_page: 'conversations.list',
+          days_since_signup: '5',
+          agents_created: '0',
+          agents_deployed: '0',
+          total_messages_handled: '0',
+          last_action: 'viewing conversation history',
+          stuck_signals: '',
+          paywall_hit: ''
         }
+      };
+
+      var presetWrap = document.getElementById('hera-presets');
+      var loaded = document.getElementById('hera-loaded');
+      var loadedTitle = document.getElementById('hera-loaded-title');
+      var ctxDebugBody = document.getElementById('ctx-debug-body');
+
+      function renderDebug(ctx) {
+        var lines = Object.keys(ctx).map(function (k) {
+          return k + ': ' + (ctx[k] === '' ? '(empty)' : ctx[k]);
+        });
+        ctxDebugBody.innerHTML = lines.join('<br />');
       }
+
+      function loadAndOpenHera(context) {
+        window.AISellerSettings = {
+          agent_id: HERA_AGENT_ID,
+          user_context: context,
+          context: context,
+          variables: context
+        };
+
+        (function () {
+          var w = window;
+          var ew = w.AISeller;
+          if (typeof ew === 'function') {
+            ew('update', w.AISellerSettings);
+          } else {
+            var d = document;
+            var i = function () { i.q.push(arguments); };
+            i.q = [];
+            i.q.push(['update', w.AISellerSettings]);
+            w.AISeller = i;
+            var l = function () {
+              var s = d.createElement('script');
+              s.type = 'text/javascript';
+              s.async = true;
+              s.src = 'https://d33t2173eag6fx.cloudfront.net/script/app/inbound-se-script/ai-seller.js';
+              var x = d.getElementsByTagName('script')[0];
+              x.parentNode.insertBefore(s, x);
+            };
+            if (document.readyState === 'complete') { l(); }
+            else { w.addEventListener('load', l, false); }
+          }
+        })();
+
+        var ctxAttempts = 0;
+        function pushContextWhenReady() {
+          ctxAttempts++;
+          var s = window.AISeller;
+          if (s) {
+            try {
+              if (typeof s.setContext === 'function') s.setContext(context);
+              else if (typeof s.update === 'function') s.update({ user_context: context, context: context, variables: context });
+              else if (typeof s === 'function') {
+                s('setContext', context);
+                s('update', { user_context: context, context: context, variables: context });
+              }
+            } catch (e) {}
+          }
+          if (ctxAttempts < 30) setTimeout(pushContextWhenReady, 300);
+        }
+        pushContextWhenReady();
+
+        var openAttempts = 0;
+        function openWidgetWhenReady() {
+          openAttempts++;
+          var s = window.AISeller;
+          var opened = false;
+          if (s) {
+            try {
+              if (typeof s.open === 'function') { s.open(); opened = true; }
+              else if (typeof s.show === 'function') { s.show(); opened = true; }
+              else if (typeof s.toggle === 'function') { s.toggle(); opened = true; }
+              else if (typeof s === 'function') {
+                s('open'); s('show'); opened = true;
+              }
+            } catch (e) {}
+          }
+          if (!opened && openAttempts < 40) setTimeout(openWidgetWhenReady, 300);
+        }
+        setTimeout(openWidgetWhenReady, 800);
+      }
+
+      var SCENARIO_LABELS = {
+        'new-stuck': 'Alex (stuck mid-setup)',
+        'paywall-hit': 'Jordan (Salesforce paywall)',
+        'enterprise-scope': 'Taylor (enterprise scope)',
+        'end-user': 'Sam (end-user, cannot upgrade)'
+      };
+
+      presetWrap.addEventListener('click', function (e) {
+        var btn = e.target.closest('button[data-preset]');
+        if (!btn) return;
+        var preset = btn.getAttribute('data-preset');
+        var ctx = PRESETS[preset];
+        if (!ctx) return;
+
+        loadedTitle.textContent = 'Loading Hera for ' + SCENARIO_LABELS[preset] + '…';
+        presetWrap.style.display = 'none';
+        loaded.classList.add('show');
+        renderDebug(ctx);
+        loadAndOpenHera(ctx);
+      });
     })();
   </script>
 </body>

@@ -579,6 +579,34 @@
           }
         }
         pushContextWhenReady();
+
+        // Auto-open the chat panel after load + context is set.
+        // Scoped to this page only (Iris). Tries multiple known AISeller API patterns;
+        // if none work in this widget build, the floating launcher remains clickable manually.
+        var openAttempts = 0;
+        function openWidgetWhenReady() {
+          openAttempts++;
+          var seller = window.AISeller;
+          var opened = false;
+          if (seller) {
+            try {
+              if (typeof seller.open === 'function') { seller.open(); opened = true; }
+              else if (typeof seller.show === 'function') { seller.show(); opened = true; }
+              else if (typeof seller.toggle === 'function') { seller.toggle(); opened = true; }
+              else if (typeof seller === 'function') {
+                seller('open');
+                seller('show');
+                opened = true;
+              }
+            } catch (e) { /* method not present in this build, keep trying */ }
+          }
+          // Poll for ~12s; widget loader is async.
+          if (!opened && openAttempts < 40) {
+            setTimeout(openWidgetWhenReady, 300);
+          }
+        }
+        // Slight initial delay so the widget can mount before we try to open it.
+        setTimeout(openWidgetWhenReady, 800);
       }
 
       function renderDebug(ctx) {
