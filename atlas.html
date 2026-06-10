@@ -202,21 +202,28 @@
       // Lean DCI: only the 3 variables Atlas's prompt actually references.
       // Consent language, adjacent campaigns, and UTMs move to agent persona
       // config / KB retrieval / form-handoff metadata — not the agent's DCI.
+      // Map campaign_id to a human label for the loading screen (not passed as DCI).
+      var CAMPAIGN_LABELS = {
+        'paid-benchmarks-2026': '2026 Paid Conversion Benchmarks',
+        'aql-framework-2026': 'AQL Replacement Framework',
+        'abm-warm-context-2026': 'ABM Warm Context Study'
+      };
+
       var PRESETS = {
         'paid-benchmarks-2026': {
           campaign_id: 'paid-benchmarks-2026',
           campaign_opening_line: "You're exploring our 2026 Paid Conversion Benchmarks.",
-          campaign_download_url: 'https://golden-docket.vercel.app/assets/docket-paid-benchmarks-2026.pdf'
+          campaign_download_url: 'https://golden-docket.vercel.app/assets/docket-paid-benchmarks-2026.html'
         },
         'aql-framework-2026': {
           campaign_id: 'aql-framework-2026',
           campaign_opening_line: "You've found our AQL Replacement Framework.",
-          campaign_download_url: 'https://golden-docket.vercel.app/assets/docket-aql-framework-2026.pdf'
+          campaign_download_url: 'https://golden-docket.vercel.app/assets/docket-aql-framework-2026.html'
         },
         'abm-warm-context-2026': {
           campaign_id: 'abm-warm-context-2026',
           campaign_opening_line: "This is our ABM Warm Context Study.",
-          campaign_download_url: 'https://golden-docket.vercel.app/assets/docket-abm-warm-context-2026.pdf'
+          campaign_download_url: 'https://golden-docket.vercel.app/assets/docket-abm-warm-context-2026.html'
         }
       };
 
@@ -307,7 +314,7 @@
         var match = window.location.search.match(/[?&]campaign=([^&]+)/);
         if (match && PRESETS[match[1]]) {
           var ctx = PRESETS[match[1]];
-          loadedTitle.textContent = 'Loading Atlas for ' + ctx.campaign_title + '…';
+          loadedTitle.textContent = 'Loading Atlas for ' + (CAMPAIGN_LABELS[ctx.campaign_id] || ctx.campaign_id) + '…';
           presetWrap.style.display = 'none';
           loaded.classList.add('show');
           renderDebug(ctx);
@@ -323,7 +330,7 @@
         var ctx = PRESETS[preset];
         if (!ctx) return;
 
-        loadedTitle.textContent = 'Loading Atlas for ' + ctx.campaign_title + '…';
+        loadedTitle.textContent = 'Loading Atlas for ' + (CAMPAIGN_LABELS[ctx.campaign_id] || ctx.campaign_id) + '…';
         presetWrap.style.display = 'none';
         loaded.classList.add('show');
         renderDebug(ctx);
@@ -331,5 +338,6 @@
       });
     })();
   </script>
+  <script src="reset-session.js"></script>
 </body>
 </html>
